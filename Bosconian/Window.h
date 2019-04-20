@@ -3,24 +3,18 @@
 
 #include <BaseOpenGLWindow.h>
 #include <BaseOpenGLRenderer.h>
+#include <UserInputController.h>
 
+#include "Definitions.h"
 #include "Game.h"
-
-#define WIN_POS_X	50
-#define WIN_POS_Y	100
-#define WIN_WIDTH	900
-#define WIN_HEIGHT	600
 
 class Window : public BaseOpenGLWindow {
 
-	BaseOpenGLRenderer* renderer;
-	Game* game;
+	Game* const game;
 
 public:
 
-	Window(BaseOpenGLRenderer* const renderer, Game* const game) :
-		BaseOpenGLWindow(game, renderer, WIN_POS_X, WIN_POS_Y, WIN_WIDTH, WIN_HEIGHT, "Bosconian | OpenGL"), 
-		game(game), renderer(renderer) {};
+	Window(BaseOpenGLRenderer* const renderer, Game* const game);
 
 	void checkInput(float dt) override;
 

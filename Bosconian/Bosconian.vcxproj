@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="APIFactory.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="Renderer.h" />

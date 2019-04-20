@@ -10,10 +10,12 @@ class GameLogic : public Game {
 public:
 
 	GameLogic() {};
-	~GameLogic() {};
+	~GameLogic() {
+		printf("GameLogic Deleting\n");
+	};
 
 	void update(const float dt) override {
-		printf("Update");
+
 	};
 
 };

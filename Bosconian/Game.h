@@ -5,7 +5,6 @@
 
 struct Game : public InternalLogic {
 
-
 };
 
 #endif GAME
