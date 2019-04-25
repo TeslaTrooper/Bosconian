@@ -34,6 +34,18 @@
     <Filter Include="Header Files\logic\core">
       <UniqueIdentifier>{432aec4a-e690-4bff-af37-7569599d8c25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\logic\core\entities">
+      <UniqueIdentifier>{b60f5cef-a4e0-488a-a455-ca8cc0b3563e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logic">
+      <UniqueIdentifier>{ef315e4b-8a86-4b80-91bc-589d8307dac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logic\core">
+      <UniqueIdentifier>{50873cba-da5c-4498-8392-4e5849685949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logic\core\entities">
+      <UniqueIdentifier>{c6026cb0-170f-4c9f-b223-9c31dee5ffbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -57,6 +69,9 @@
     <ClInclude Include="Definitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -70,6 +85,12 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\logic\core\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogic.cpp">
+      <Filter>Source Files\logic\core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
