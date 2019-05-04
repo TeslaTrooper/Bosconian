@@ -72,6 +72,15 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\logic\core\entities</Filter>
     </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Header Files\logic\core</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityHandler.h">
+      <Filter>Header Files\logic\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -91,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="GameLogic.cpp">
       <Filter>Source Files\logic\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Source Files\logic\core\entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

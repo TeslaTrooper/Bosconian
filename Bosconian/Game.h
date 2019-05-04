@@ -10,6 +10,10 @@ struct Game : public InternalLogic {
 
 	virtual vector<RenderUnit> getRenderUnits() const = 0;
 
+	virtual Mat4 getCameraTransformation() const = 0;
+
+	virtual void setShipDirection(int direction) = 0;
+
 };
 
 #endif GAME

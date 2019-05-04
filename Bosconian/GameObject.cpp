@@ -1,13 +1,19 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const Vec2 position, const Vec2 scale) : scale(scale) {
+GameObject::GameObject(const Vec2 position, const Vec2 scale, const Rectangle sprite) :
+	sprite(sprite) {
 	setPosition(position);
+	setBbox(scale);
 }
 
 void GameObject::update(const float dt) {
 	lifetime += dt;
 
 	updateTransformation();
+}
+
+RenderUnit GameObject::getRenderUnit() const {
+	return { getTransformation(), sprite };
 }
 
 bool GameObject::canCollide() const {
@@ -19,7 +25,7 @@ bool GameObject::canCollideWith(const Entity * const e) const {
 }
 
 void GameObject::updateTransformation() {
-	setTransformation(Mat4::getTransformation(getPosition(), scale));
+	setTransformation(Mat4::getTransformation(getPosition(), getBbox()));
 }
 
 VertexData GameObject::getVertexData() const {

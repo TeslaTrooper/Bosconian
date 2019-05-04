@@ -9,10 +9,12 @@
 #include "Definitions.h"
 #include "Game.h"
 
-#define RASTER_SIZE			256
-#define PROJECTION			"projection"
-#define TRANSFORM			"transform"
-#define TEXTURE_TRANSFORM	"textureTranslation"
+#define RASTER_SIZE			128
+#define PROJECTION				"projection"
+#define TRANSFORM				"transform"
+#define TEXTURE_TRANSFORM		"textureTranslation"
+#define VIEW					"view"
+#define TEXTURE_ROTATION_PIVOT	"pivot"
 
 class Renderer : public BaseOpenGLRenderer {
 
@@ -28,6 +30,8 @@ class Renderer : public BaseOpenGLRenderer {
 	void initProjection() const;
 	void prepareShaders(const RenderUnit unit) const;
 	Mat3 getTextureCoordinates(const Rectangle rect) const;
+	Vec2 getTextureRotationPivot(const Rectangle rect) const;
+
 
 	void render() const override;
 
