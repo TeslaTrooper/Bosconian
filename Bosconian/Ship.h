@@ -11,7 +11,7 @@ class Ship : public GameObject {
 
 	void changeMovement(const Vec2& direction) {
 		setDirection(direction);
-		setMovement(direction * SHIP_SPEED);
+		setMovement(direction.norm(SHIP_SPEED));
 	}
 
 public:

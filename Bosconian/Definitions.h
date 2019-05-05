@@ -8,10 +8,14 @@
 #define WIN_WIDTH	900
 #define WIN_HEIGHT	600
 
-#define DIRECTION_LEFT		0
-#define DIRECTION_UP		1
-#define DIRECTION_RIGHT		2
-#define DIRECTION_DOWN	3
+#define DIRECTION_LEFT			0
+#define DIRECTION_UP			1
+#define DIRECTION_RIGHT			2
+#define DIRECTION_DOWN			3
+#define DIRECTION_LEFT_UP		4
+#define DIRECTION_LEFT_DOWN		5
+#define DIRECTION_RIGHT_UP		6
+#define DIRECTION_RIGHT_DOWN	7
 
 #define CLASS_ID_GAME_OBJECT	0
 #define CLASS_ID_SHIP			1
@@ -37,10 +41,14 @@ namespace Rendering {
 namespace TextureAtlas {
 
 	namespace Ship {
-		static const Rendering::Rectangle SPRITE_UP		= { Vec2(0, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_DOWN	= { Vec2(0, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT	= { Vec2(0, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT	= { Vec2(0, 3), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_UP			= { Vec2(0, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_DOWN		= { Vec2(0, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_LEFT		= { Vec2(0, 2), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_RIGHT		= { Vec2(0, 3), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_RIGHT_UP	= { Vec2(0, 4), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { Vec2(0, 5), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_LEFT_UP	= { Vec2(0, 6), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { Vec2(0, 7), Vec2(1, 1) };
 	}
 
 	namespace Enemy1 {
