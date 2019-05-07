@@ -11,6 +11,11 @@
 #include "Camera.h"
 #include "Definitions.h"
 
+#define WORLD_WIDTH		600
+#define WORLD_HEIGHT	1000
+
+#define DEFAULT_SHIP_START_POSITION Vec2(300, 500)
+
 class GameLogic : public Game, public CollisionCallback {
 
 	PhysicsEngine physics;
@@ -23,8 +28,10 @@ class GameLogic : public Game, public CollisionCallback {
 public:
 
 	GameLogic() : physics(this), entityFactory(&entityHandler) {
-		Ship* ship = entityFactory.createShip(Vec2(100, 200), Vec2(50, 50));
-		entityFactory.createMine(Vec2(50, 50), Vec2(30, 30));
+		Ship* ship = entityFactory.createShip(DEFAULT_SHIP_START_POSITION);
+		entityFactory.createMine(Vec2(50, 50));
+		entityFactory.createStation(Vec2(70, 100));
+
 		camera = new Camera(ship, WIN_WIDTH, WIN_HEIGHT);
 	};
 	~GameLogic() {};
@@ -41,7 +48,7 @@ public:
 
 	vector<RenderUnit> getRenderUnits() const override;
 
-	void setShipDirection(int direction) override {
+	void setShipDirection(int direction) const override {
 		Ship* ship = entityHandler.getShip();
 
 		if (ship == nullptr)

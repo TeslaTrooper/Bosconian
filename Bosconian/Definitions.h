@@ -20,6 +20,8 @@
 #define CLASS_ID_GAME_OBJECT	0
 #define CLASS_ID_SHIP			1
 
+#define IN_GAME_RASTER_SIZE Vec2(50, 50)
+
 namespace Rendering {
 
 	struct Rectangle {
@@ -72,17 +74,16 @@ namespace TextureAtlas {
 		static const Rendering::Rectangle SPRITE_RIGHT  = { Vec2(3, 3), Vec2(1, 1) };
 	}
 
-	namespace Asteroid {
-		static const Rendering::Rectangle SPRITE		= { Vec2(4, 0), Vec2(1, 1) };
+	namespace Obstacle {
+		static const Rendering::Rectangle ASTEROID = { Vec2(4, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle MINE = { Vec2(4, 1), Vec2(1, 1) };
 	}
 
-	namespace Mine {
-		static const Rendering::Rectangle SPRITE		= { Vec2(4, 1), Vec2(1, 1) };
-	}
-
-	namespace Node {
-		static const Rendering::Rectangle SPRITE		= { Vec2(4, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_DAMAGE = { Vec2(4, 3), Vec2(1, 1) };
+	namespace Station {
+		static const Rendering::Rectangle NODE			= { Vec2(4, 2), Vec2(1, 1) };
+		static const Rendering::Rectangle NODE_DAMAGEd	= { Vec2(4, 3), Vec2(1, 1) };
+		static const Rendering::Rectangle CORE			= { Vec2(4, 7), Vec2(2, 1) };
+		static const Rendering::Rectangle CONNECTORS	= { Vec2(4, 4), Vec2(2, 3) };
 	}
 
 }

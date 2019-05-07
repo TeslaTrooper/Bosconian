@@ -16,7 +16,7 @@ class Ship : public GameObject {
 
 public:
 
-	Ship(const Vec2 position, const Vec2 scale) : GameObject(position, scale, SPRITE_UP) {};
+	Ship(const Vec2 position) : GameObject(position, IN_GAME_RASTER_SIZE, SPRITE_UP) {};
 
 	void update(const float dt) override;
 	void move(int direction);

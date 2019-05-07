@@ -12,7 +12,7 @@ struct Game : public InternalLogic {
 
 	virtual Mat4 getCameraTransformation() const = 0;
 
-	virtual void setShipDirection(int direction) = 0;
+	virtual void setShipDirection(int direction) const = 0;
 
 };
 
