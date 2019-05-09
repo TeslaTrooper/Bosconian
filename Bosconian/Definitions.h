@@ -75,8 +75,8 @@ namespace TextureAtlas {
 	}
 
 	namespace Obstacle {
-		static const Rendering::Rectangle ASTEROID = { Vec2(4, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle MINE = { Vec2(4, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle ASTEROID	= { Vec2(4, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle MINE		= { Vec2(4, 1), Vec2(1, 1) };
 	}
 
 	namespace Station {
@@ -84,6 +84,21 @@ namespace TextureAtlas {
 		static const Rendering::Rectangle NODE_DAMAGEd	= { Vec2(4, 3), Vec2(1, 1) };
 		static const Rendering::Rectangle CORE			= { Vec2(4, 7), Vec2(2, 1) };
 		static const Rendering::Rectangle CONNECTORS	= { Vec2(4, 4), Vec2(2, 3) };
+	}
+
+	namespace Font {
+		static const Rendering::Rectangle ZERO		= { Vec2(3, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle ONE		= { Vec2(0, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle TWO		= { Vec2(1, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle THREE		= { Vec2(2, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle FOUR		= { Vec2(3, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle FIVE		= { Vec2(4, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle SIX		= { Vec2(5, 0), Vec2(1, 1) };
+		static const Rendering::Rectangle SEVEN		= { Vec2(0, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle EIGHT		= { Vec2(1, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle NINE		= { Vec2(2, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle SCORE		= { Vec2(0, 2), Vec2(5, 1) };
+		static const Rendering::Rectangle ROUND		= { Vec2(0, 3), Vec2(5, 1) };
 	}
 
 }
