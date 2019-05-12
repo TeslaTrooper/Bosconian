@@ -8,7 +8,7 @@ void Renderer::setup() {
 	tileset->loadTexture();
 
 	initProjection();
-	createFrameBuffer(WIN_WIDTH, WIN_HEIGHT);
+	createFrameBuffer(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	data = configure(ModelData::quadBindable, DrawMode::TRIANGLES);
 }
 
