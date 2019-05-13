@@ -80,7 +80,6 @@ void Renderer::prepareStandardShader(const RenderUnit unit) const {
 	standardShader->setUniformMatrix4(TRANSFORM, unit.transformation);
 	standardShader->setUniformMatrix3(TEXTURE_TRANSFORM, textureTransformation);
 	standardShader->setUniformMatrix4(VIEW, game->getCameraTransformation());
-	standardShader->setVector2(TEXTURE_ROTATION_PIVOT, getTextureRotationPivot(unit.textureTransform));
 }
 
 void Renderer::prepareHUDShader(const RenderUnit unit) const {
@@ -101,13 +100,6 @@ Mat3 Renderer::getTextureCoordinates(const Rectangle rect) const {
 	transformation.scale(textureScaler);
 
 	return transformation;
-}
-
-Vec2 Renderer::getTextureRotationPivot(const Rectangle rect) const {
-	Vec2 pixelPosition = rect.position * RASTER_SIZE;
-	Vec2 pixelSize = rect.size * RASTER_SIZE;
-
-	return pixelPosition + (pixelSize / 2);
 }
 
 Renderer::~Renderer() {
