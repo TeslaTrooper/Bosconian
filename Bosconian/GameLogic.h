@@ -32,7 +32,7 @@ public:
 		entityFactory.createMine(Vec2(50, 50));
 		entityFactory.createStation(Vec2(70, 100));
 
-		camera = new Camera(ship, WIN_WIDTH, WIN_HEIGHT);
+		camera = new Camera(ship, WIN_WIDTH-200, WIN_HEIGHT);
 	};
 	~GameLogic() {};
 

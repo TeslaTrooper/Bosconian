@@ -21,6 +21,7 @@
 #define CLASS_ID_SHIP			1
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
+#define ALPHA_COLOR new Color(141, 0, 200)
 
 namespace Rendering {
 
