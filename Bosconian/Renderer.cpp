@@ -35,6 +35,8 @@ void Renderer::render() const {
 	renderEntites();
 	renderHUD();
 
+	// Switch to this shader in order to render
+	// everthing as a simple flipped texture on a quad
 	framebufferShader->use();
 }
 
@@ -54,12 +56,20 @@ void Renderer::renderHUD() const {
 	fontset->bind();
 	bindFrameBuffer(hudFrameBuffer);
 
-	Vec2 scoreLabelPosition = Vec2(100, WIN_HEIGHT - 20);
+	Vec2 scoreLabelPosition = Vec2(100, WIN_HEIGHT - 70);
 	prepareHUDShader({ Mat4::getTransformation(scoreLabelPosition, Vec2(100, 20)), TextureAtlas::Font::SCORE });
 	draw(data);
 
-	Vec2 scorePosition = Vec2(180, WIN_HEIGHT - 40);
+	Vec2 scorePosition = Vec2(180, WIN_HEIGHT - 95);
 	prepareHUDShader({ Mat4::getTransformation(scorePosition, Vec2(20, 20)), TextureAtlas::Font::ZERO });
+	draw(data);
+
+	Vec2 roundLabelPosition = Vec2(0, 50);
+	prepareHUDShader({ Mat4::getTransformation(roundLabelPosition, Vec2(100, 20)), TextureAtlas::Font::ROUND });
+	draw(data);
+
+	Vec2 roundPosition = Vec2(180, 50);
+	prepareHUDShader({ Mat4::getTransformation(roundPosition, Vec2(20, 20)), TextureAtlas::Font::ONE });
 	draw(data);
 }
 
@@ -103,5 +113,7 @@ Vec2 Renderer::getTextureRotationPivot(const Rectangle rect) const {
 Renderer::~Renderer() {
 	delete standardShader;
 	delete framebufferShader;
+	delete hudShader;
 	delete tileset;
+	delete fontset;
 }
