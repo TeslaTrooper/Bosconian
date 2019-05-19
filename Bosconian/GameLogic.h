@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include <PhysicsEngine.h>
+#include <GameWorld.h>
 
 #include "Game.h"
 #include "EntityFactory.h"
@@ -21,19 +22,25 @@ class GameLogic : public Game, public CollisionCallback {
 	PhysicsEngine physics;
 	EntityFactory entityFactory;
 	EntityHandler entityHandler;
+	GameWorld gameWorld;
 	Camera* camera;
 
 	void resolveCollision(Entity* e1, Entity* e2, const Vec2& location) const override;
 
 public:
 
-	GameLogic() : physics(this), entityFactory(&entityHandler) {
+	GameLogic() : physics(this), entityFactory(&entityHandler), gameWorld(GameWorld(WORLD_WIDTH, WORLD_HEIGHT, WORLD_TYPE_LOOP)) {
 		Ship* ship = entityFactory.createShip(DEFAULT_SHIP_START_POSITION);
-		entityFactory.createMine(Vec2(50, 50));
+		entityFactory.createMine(Vec2(0,0));
+		entityFactory.createAsteroid(Vec2(WORLD_WIDTH - 50, 0));
+		entityFactory.createAsteroid(Vec2(WORLD_WIDTH - 50, WORLD_HEIGHT-50));
+		entityFactory.createMine(Vec2(0, WORLD_HEIGHT - 50));
+
 		entityFactory.createStation(Vec2(70, 100));
 
-		camera = new Camera(ship, WIN_WIDTH-200, WIN_HEIGHT);
+		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
 	};
+
 	~GameLogic() {};
 
 	void update(const float dt) override {
@@ -44,6 +51,8 @@ public:
 
 		for (int i = 0; i < objects.size(); i++)
 			objects.at(i)->update(dt);
+
+		gameWorld.update(dt, entities);
 	};
 
 	vector<RenderUnit> getRenderUnits() const override;
