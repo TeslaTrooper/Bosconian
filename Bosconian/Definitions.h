@@ -3,10 +3,17 @@
 
 #include <structs.h>
 
+// Generall definitions
 #define WIN_POS_X	50
 #define WIN_POS_Y	100
 #define WIN_WIDTH	900
 #define WIN_HEIGHT	600
+
+#define ALPHA_COLOR new Color(141, 0, 200)
+
+// In-Game specific definitions
+#define WORLD_WIDTH		1000
+#define WORLD_HEIGHT	1500
 
 #define DIRECTION_LEFT			0
 #define DIRECTION_UP			1
@@ -21,13 +28,31 @@
 #define CLASS_ID_SHIP			1
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
-#define ALPHA_COLOR new Color(141, 0, 200)
 
 namespace Rendering {
 
 	struct Rectangle {
 		Vec2 position;
 		Vec2 size;
+
+		Rectangle(float x, float y, float w, float h) : position(Vec2(x, y)), size(Vec2(w, h)) {}
+
+		bool intersects(const Rectangle& rect) const {
+			float r1x = position.x;
+			float r1y = position.y;
+			float r1w = size.x;
+			float r1h = size.y;
+
+			float r2x = rect.position.x;
+			float r2y = rect.position.y;
+			float r2w = rect.size.x;
+			float r2h = rect.size.y;
+
+			return r1x < r2x + r2w &&
+				r1x + r1w > r2x &&
+				r1y < r2y + r2h &&
+				r1h + r1y > r2y;
+		}
 
 		bool operator==(const Rectangle& rect) {
 			return position == rect.position && size == rect.size;
@@ -44,62 +69,62 @@ namespace Rendering {
 namespace TextureAtlas {
 
 	namespace Ship {
-		static const Rendering::Rectangle SPRITE_UP			= { Vec2(0, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_DOWN		= { Vec2(0, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT		= { Vec2(0, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT		= { Vec2(0, 3), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT_UP	= { Vec2(0, 4), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { Vec2(0, 5), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT_UP	= { Vec2(0, 6), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { Vec2(0, 7), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_UP			= { 0, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN		= { 0, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT		= { 0, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT		= { 0, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_UP	= { 0, 4, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { 0, 5, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_UP	= { 0, 6, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { 0, 7, 1, 1 };
 	}
 
 	namespace Enemy1 {
-		static const Rendering::Rectangle SPRITE_UP		= { Vec2(1, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_DOWN	= { Vec2(1, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT	= { Vec2(1, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT	= { Vec2(1, 3), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_UP		= { 1, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN	= { 1, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT	= { 1, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT	= { 1, 3, 1, 1 };
 	}
 
 	namespace Enemy2 {
-		static const Rendering::Rectangle SPRITE_UP		= { Vec2(2, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_DOWN	= { Vec2(2, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT	= { Vec2(2, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT	= { Vec2(2, 3), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_UP		= { 2, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN	= { 2, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT	= { 2, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT	= { 2, 3, 1, 1 };
 	}
 
 	namespace Spy {
-		static const Rendering::Rectangle SPRITE_UP		= { Vec2(3, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_DOWN	= { Vec2(3, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_LEFT	= { Vec2(3, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle SPRITE_RIGHT  = { Vec2(3, 3), Vec2(1, 1) };
+		static const Rendering::Rectangle SPRITE_UP		= { 3, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN	= { 3, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT	= { 3, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT  = { 3, 3, 1, 1 };
 	}
 
 	namespace Obstacle {
-		static const Rendering::Rectangle ASTEROID	= { Vec2(4, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle MINE		= { Vec2(4, 1), Vec2(1, 1) };
+		static const Rendering::Rectangle ASTEROID	= { 4, 0, 1, 1 };
+		static const Rendering::Rectangle MINE		= { 4, 1, 1, 1 };
 	}
 
 	namespace Station {
-		static const Rendering::Rectangle NODE			= { Vec2(4, 2), Vec2(1, 1) };
-		static const Rendering::Rectangle NODE_DAMAGEd	= { Vec2(4, 3), Vec2(1, 1) };
-		static const Rendering::Rectangle CORE			= { Vec2(4, 7), Vec2(2, 1) };
-		static const Rendering::Rectangle CONNECTORS	= { Vec2(4, 4), Vec2(2, 3) };
+		static const Rendering::Rectangle NODE			= { 4, 2, 1, 1 };
+		static const Rendering::Rectangle NODE_DAMAGEd	= { 4, 3, 1, 1 };
+		static const Rendering::Rectangle CORE			= { 4, 7, 2, 1 };
+		static const Rendering::Rectangle CONNECTORS	= { 4, 4, 2, 3 };
 	}
 
 	namespace Font {
-		static const Rendering::Rectangle ZERO		= { Vec2(3, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle ONE		= { Vec2(0, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle TWO		= { Vec2(1, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle THREE		= { Vec2(2, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle FOUR		= { Vec2(3, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle FIVE		= { Vec2(4, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SIX		= { Vec2(5, 0), Vec2(1, 1) };
-		static const Rendering::Rectangle SEVEN		= { Vec2(0, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle EIGHT		= { Vec2(1, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle NINE		= { Vec2(2, 1), Vec2(1, 1) };
-		static const Rendering::Rectangle SCORE		= { Vec2(0, 2), Vec2(5, 1) };
-		static const Rendering::Rectangle ROUND		= { Vec2(0, 3), Vec2(5, 1) };
+		static const Rendering::Rectangle ZERO		= { 3, 1, 1, 1 };
+		static const Rendering::Rectangle ONE		= { 0, 0, 1, 1 };
+		static const Rendering::Rectangle TWO		= { 1, 0, 1, 1 };
+		static const Rendering::Rectangle THREE		= { 2, 0, 1, 1 };
+		static const Rendering::Rectangle FOUR		= { 3, 0, 1, 1 };
+		static const Rendering::Rectangle FIVE		= { 4, 0, 1, 1 };
+		static const Rendering::Rectangle SIX		= { 5, 0, 1, 1 };
+		static const Rendering::Rectangle SEVEN		= { 0, 1, 1, 1 };
+		static const Rendering::Rectangle EIGHT		= { 1, 1, 1, 1 };
+		static const Rendering::Rectangle NINE		= { 2, 1, 1, 1 };
+		static const Rendering::Rectangle SCORE		= { 0, 2, 5, 1 };
+		static const Rendering::Rectangle ROUND		= { 0, 3, 5, 1 };
 	}
 
 }

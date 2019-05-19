@@ -7,38 +7,29 @@
 #include <GameWorld.h>
 
 #include "Game.h"
-#include "EntityFactory.h"
 #include "EntityHandler.h"
 #include "Camera.h"
 #include "Definitions.h"
-
-#define WORLD_WIDTH		600
-#define WORLD_HEIGHT	1000
-
-#define DEFAULT_SHIP_START_POSITION Vec2(300, 500)
+#include "EntitySpawner.h"
 
 class GameLogic : public Game, public CollisionCallback {
 
 	PhysicsEngine physics;
-	EntityFactory entityFactory;
 	EntityHandler entityHandler;
 	GameWorld gameWorld;
+	EntitySpawner entititySpawner;
 	Camera* camera;
 
 	void resolveCollision(Entity* e1, Entity* e2, const Vec2& location) const override;
 
 public:
 
-	GameLogic() : physics(this), entityFactory(&entityHandler), gameWorld(GameWorld(WORLD_WIDTH, WORLD_HEIGHT, WORLD_TYPE_LOOP)) {
-		Ship* ship = entityFactory.createShip(DEFAULT_SHIP_START_POSITION);
-		entityFactory.createMine(Vec2(0,0));
-		entityFactory.createAsteroid(Vec2(WORLD_WIDTH - 50, 0));
-		entityFactory.createAsteroid(Vec2(WORLD_WIDTH - 50, WORLD_HEIGHT-50));
-		entityFactory.createMine(Vec2(0, WORLD_HEIGHT - 50));
-
-		entityFactory.createStation(Vec2(70, 100));
-
+	GameLogic() : physics(this), entititySpawner(&entityHandler), gameWorld(GameWorld(WORLD_WIDTH, WORLD_HEIGHT, WORLD_TYPE_LOOP)) {
+		Ship* ship = entititySpawner.spawnShip();
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
+
+		entititySpawner.spawnStations();
+		entititySpawner.spawnObstacles();
 	};
 
 	~GameLogic() {};
