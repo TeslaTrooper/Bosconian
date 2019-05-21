@@ -26,9 +26,11 @@ class Renderer : public BaseOpenGLRenderer {
 	Shader* standardShader;
 	Shader* framebufferShader;
 	Shader* hudShader;
+	Shader* backgroundShader;
 
 	Texture* tileset;
 	Texture* fontset;
+	Texture* background;
 
 	RenderData data;
 
@@ -38,9 +40,11 @@ class Renderer : public BaseOpenGLRenderer {
 	void initProjection() const;
 	void prepareStandardShader(const RenderUnit unit) const;
 	void prepareHUDShader(const RenderUnit unit) const;
+	void prepareBackgroundShader(const RenderUnit unit) const;
 	Mat3 getTextureCoordinates(const Rectangle rect) const;
 
 	void render() const override;
+	void renderBackground() const;
 	void renderEntites() const;
 	void renderHUD() const;
 

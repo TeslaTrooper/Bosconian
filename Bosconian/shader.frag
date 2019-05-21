@@ -2,8 +2,8 @@
 
 in vec3 textureCoords;
 out vec4 color;
+
 uniform sampler2D tex;
-uniform vec2 pivot;
 
 void main() {
 	vec2 coord = textureCoords.xy;

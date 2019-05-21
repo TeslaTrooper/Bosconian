@@ -127,6 +127,10 @@ namespace TextureAtlas {
 		static const Rendering::Rectangle ROUND		= { 0, 3, 5, 1 };
 	}
 
+	namespace Background {
+		static const Rendering::Rectangle RECT = { 0, 0, 4, 4 };
+	}
+
 }
 
 namespace ModelData {

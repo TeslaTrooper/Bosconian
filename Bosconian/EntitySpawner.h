@@ -3,7 +3,7 @@
 
 #include "EntityFactory.h"
 
-#define OBSTACLE_COUNT 100
+#define OBSTACLE_COUNT 20
 #define DEFAULT_SHIP_START_POSITION Vec2(WORLD_WIDTH / 2, WORLD_HEIGHT / 2)
 
 class EntitySpawner {

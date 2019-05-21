@@ -4,8 +4,8 @@ layout (location = 1) in vec2 texture;
 
 out vec3 textureCoords;
 
-uniform mat4 projection;
 uniform mat4 transform;
+uniform mat4 projection;
 uniform mat3 textureTranslation;
 
 void main() {

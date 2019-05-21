@@ -5,7 +5,11 @@ void Renderer::setup(int defaultFramebufferWidth, int defaultFramebufferHeight) 
 
 	standardShader = ShaderFactory::createShader("shader.vert", "shader.frag");
 	framebufferShader = ShaderFactory::createShader("framebufferShader.vert", "framebufferShader.frag");
-	hudShader = ShaderFactory::createShader("hudShader.vert", "hudShader.frag");
+	hudShader = ShaderFactory::createShader("hudShader.vert", "shader.frag");
+	backgroundShader = ShaderFactory::createShader("hudShader.vert", "backgroundShader.frag");
+
+	background = new Texture("bg.bmp", Format::BMP);
+	background->loadTexture();
 
 	tileset = new Texture("Atlas.bmp", Format::BMP);
 	tileset->setAlternativeAlphaColor(ALPHA_COLOR);
@@ -24,20 +28,38 @@ void Renderer::setup(int defaultFramebufferWidth, int defaultFramebufferHeight) 
 }
 
 void Renderer::initProjection() const {
+	Mat4 mainFrameBufferProjection = Projection::getOrthographicProjection(MAIN_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
+	Mat4 hudFrameBufferProjection = Projection::getOrthographicProjection(HUD_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
+
 	standardShader->use();
-	standardShader->setUniformMatrix4(PROJECTION, Projection::getOrthographicProjection(MAIN_FRAME_BUFFER_WIDTH, WIN_HEIGHT));
+	standardShader->setUniformMatrix4(PROJECTION, mainFrameBufferProjection);
 
 	hudShader->use();
-	hudShader->setUniformMatrix4(PROJECTION, Projection::getOrthographicProjection(HUD_FRAME_BUFFER_WIDTH, WIN_HEIGHT));
+	hudShader->setUniformMatrix4(PROJECTION, hudFrameBufferProjection);
+
+	backgroundShader->use();
+	backgroundShader->setUniformMatrix4(PROJECTION, mainFrameBufferProjection);
 }
 
 void Renderer::render() const {
+	renderBackground();
 	renderEntites();
 	renderHUD();
 
 	// Switch to this shader in order to render
 	// everthing as a simple flipped texture on a quad
 	framebufferShader->use();
+}
+
+void Renderer::renderBackground() const {
+	background->bind();
+	bindFrameBuffer(mainFrameBuffer);
+
+	Vec2 scale = Vec2(MAIN_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
+	Mat4 transformation = Mat4::getTransformation(Vec2(), scale);
+	prepareBackgroundShader({ transformation, TextureAtlas::Background::RECT });
+
+	draw(data);
 }
 
 void Renderer::renderEntites() const {
@@ -88,6 +110,15 @@ void Renderer::prepareHUDShader(const RenderUnit unit) const {
 	hudShader->use();
 	hudShader->setUniformMatrix4(TRANSFORM, unit.transformation);
 	hudShader->setUniformMatrix3(TEXTURE_TRANSFORM, textureTransformation);
+}
+
+void Renderer::prepareBackgroundShader(const RenderUnit unit) const {
+	Mat3 textureTransformation = getTextureCoordinates(unit.textureTransform);
+
+	backgroundShader->use();
+	backgroundShader->setUniformMatrix4(TRANSFORM, unit.transformation);
+	backgroundShader->setUniformMatrix3(TEXTURE_TRANSFORM, textureTransformation);
+	backgroundShader->setUniformMatrix4(VIEW, game->getCameraTransformation());
 }
 
 Mat3 Renderer::getTextureCoordinates(const Rectangle rect) const {
