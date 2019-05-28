@@ -19,4 +19,5 @@ void main() {
 	coord /= res;
 
 	color = texture(tex, coord);
+	//color = vec4(1,1,1,1);
 }

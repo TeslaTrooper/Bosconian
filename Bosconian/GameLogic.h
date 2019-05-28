@@ -19,6 +19,7 @@ class GameLogic : public Game, public CollisionCallback {
 	GameWorld gameWorld;
 	EntitySpawner entititySpawner;
 	Camera* camera;
+	vector<StationAI*> stations;
 
 	void resolveCollision(Entity* e1, Entity* e2, const Vec2& location) const override;
 
@@ -43,7 +44,12 @@ public:
 		for (int i = 0; i < objects.size(); i++)
 			objects.at(i)->update(dt);
 
+		for (int i = 0; i < stations.size(); i++)
+			stations.at(i)->update(dt, entityHandler.getShip()->getPosition());
+
 		gameWorld.update(dt, entities);
+
+		entityHandler.cleanupDeadEntities();
 	};
 
 	vector<RenderUnit> getRenderUnits() const override;

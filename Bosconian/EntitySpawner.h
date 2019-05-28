@@ -11,7 +11,7 @@ class EntitySpawner {
 	EntityFactory entityFactory;
 	EntityHandler* const entityHandler;
 
-	bool isValidSpawnPosition(const Rectangle& rect) {
+	bool isValidSpawnPosition(const Rectangle& rect) const {
 		vector<GameObject*> objects = entityHandler->getAsList();
 
 		for (const GameObject* const obj : objects) {
@@ -27,7 +27,7 @@ class EntitySpawner {
 		return true;
 	}
 
-	void spawnObstacle() {
+	void spawnObstacle() const {
 		bool validSpawnPosition = false;
 
 		int rx = 0, ry = 0;
@@ -51,17 +51,17 @@ public:
 
 	EntitySpawner(EntityHandler* const entityHandler) : entityHandler(entityHandler), entityFactory(entityHandler) {}
 
-	Ship* spawnShip() {
+	Ship* spawnShip() const {
 		return entityFactory.createShip(DEFAULT_SHIP_START_POSITION);
 	}
 
-	void spawnObstacles() {
+	void spawnObstacles() const {
 		for (int i = 0; i < OBSTACLE_COUNT; i++)
 			spawnObstacle();
 	};
 
-	void spawnStations() {
-		entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 150));
+	void spawnStations() const {
+		entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300));
 	};
 
 };

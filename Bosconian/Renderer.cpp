@@ -42,9 +42,15 @@ void Renderer::initProjection() const {
 }
 
 void Renderer::render() const {
+	//glEnable(GL_POLYGON_MODE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 	renderBackground();
 	renderEntites();
 	renderHUD();
+
+	//glDisable(GL_POLYGON_MODE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	// Switch to this shader in order to render
 	// everthing as a simple flipped texture on a quad

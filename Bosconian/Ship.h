@@ -21,6 +21,12 @@ public:
 	void update(const float dt) override;
 	void move(int direction);
 
+	bool canCollideWith(const Entity* const e) const override {
+		int classId = ((GameObject*)e)->getClassId();
+
+		return classId != CLASS_ID_SHIP && classId != CLASS_ID_SHIP_PROJECTILE;
+	}
+
 	int getClassId() const override {
 		return CLASS_ID_SHIP;
 	}

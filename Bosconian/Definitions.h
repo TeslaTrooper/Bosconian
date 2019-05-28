@@ -24,8 +24,11 @@
 #define DIRECTION_RIGHT_UP		6
 #define DIRECTION_RIGHT_DOWN	7
 
-#define CLASS_ID_GAME_OBJECT	0
-#define CLASS_ID_SHIP			1
+#define CLASS_ID_GAME_OBJECT		0
+#define CLASS_ID_SHIP				1
+#define CLASS_ID_SHIP_PROJECTILE	2
+#define CLASS_ID_STATION			3
+#define CLASS_ID_CANNON				4
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
 
@@ -35,6 +38,7 @@ namespace Rendering {
 		Vec2 position;
 		Vec2 size;
 
+		Rectangle() : Rectangle(0, 0, 0, 0) {}
 		Rectangle(float x, float y, float w, float h) : position(Vec2(x, y)), size(Vec2(w, h)) {}
 
 		bool intersects(const Rectangle& rect) const {
@@ -157,6 +161,42 @@ namespace ModelData {
 	static Binding::AttributeData attributeData = { sizes, 2 };
 
 	static Binding::Bindable quadBindable = { vertexData, indexData, attributeData };
+}
+
+namespace Station {
+
+	static Vec2 getCorePosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(65, 50);
+	}
+	
+	static Vec2 getLeftCannonPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(-25, 50);
+	}
+
+	static Vec2 getLeftBottomCannonPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(25, -25);
+	}
+
+	static Vec2 getLeftTopCannonPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(25, 125);
+	}
+
+	static Vec2 getRightCannonPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(205, 50);
+	}
+
+	static Vec2 getRightBottomCannonPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(155, -25);
+	}
+
+	static Vec2 getRightTopCannonPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(155, 125);
+	}
+
+	static Vec2 getRightConnectorPosition(const Vec2& stationPosition) {
+		return stationPosition + Vec2(130, 0);
+	}
+
 }
 
 #endif DEFINITIONS

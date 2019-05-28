@@ -1,12 +1,18 @@
 #include "GameObject.h"
 
 GameObject::GameObject(const Vec2 position, const Vec2 scale, const Rectangle sprite) :
+	isAlive(true),
 	sprite(sprite) {
 	setPosition(position);
 	setBbox(scale);
+
+	updateTransformation();
 }
 
 void GameObject::update(const float dt) {
+	if (!isAlive)
+		return;
+
 	lifetime += dt;
 
 	updateTransformation();
@@ -21,7 +27,7 @@ bool GameObject::canCollide() const {
 }
 
 bool GameObject::canCollideWith(const Entity * const e) const {
-	return true;
+	return ((GameObject*) e)->getClassId() != CLASS_ID_GAME_OBJECT;
 }
 
 void GameObject::updateTransformation() {

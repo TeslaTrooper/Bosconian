@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="APIFactory.h" />
+    <ClInclude Include="Cannon.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="EntityFactory.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="StationAI.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

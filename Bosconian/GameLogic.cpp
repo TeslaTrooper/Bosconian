@@ -1,6 +1,16 @@
 #include "GameLogic.h"
 
-void GameLogic::resolveCollision(Entity * e1, Entity * e2, const Vec2 & location) const {}
+void GameLogic::resolveCollision(Entity * e1, Entity * e2, const Vec2& location) const {
+	GameObject* o1 = (GameObject*) e1;
+	GameObject* o2 = (GameObject*) e2;
+
+	if (o1->getClassId() == CLASS_ID_GAME_OBJECT)
+		o1->die();
+	else if (o2->getClassId() == CLASS_ID_GAME_OBJECT)
+		o2->die();
+
+	printf("Collision!");
+}
 
 vector<RenderUnit> GameLogic::getRenderUnits() const {
 	vector<RenderUnit> result;

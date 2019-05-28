@@ -75,13 +75,19 @@
     <ClInclude Include="Ship.h">
       <Filter>Header Files\logic\core\entities</Filter>
     </ClInclude>
-    <ClInclude Include="EntityFactory.h">
-      <Filter>Header Files\logic\core</Filter>
-    </ClInclude>
     <ClInclude Include="EntityHandler.h">
       <Filter>Header Files\logic\core</Filter>
     </ClInclude>
     <ClInclude Include="EntitySpawner.h">
+      <Filter>Header Files\logic\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="StationAI.h">
+      <Filter>Header Files\logic\core</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\logic\core</Filter>
     </ClInclude>
   </ItemGroup>
