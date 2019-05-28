@@ -142,6 +142,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="StationAI.h" />
+    <ClInclude Include="StationProjectile.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

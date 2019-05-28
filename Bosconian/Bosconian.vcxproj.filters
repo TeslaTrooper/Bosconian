@@ -90,6 +90,9 @@
     <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\logic\core</Filter>
     </ClInclude>
+    <ClInclude Include="StationProjectile.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">

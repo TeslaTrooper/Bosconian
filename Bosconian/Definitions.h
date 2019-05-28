@@ -29,6 +29,7 @@
 #define CLASS_ID_SHIP_PROJECTILE	2
 #define CLASS_ID_STATION			3
 #define CLASS_ID_CANNON				4
+#define CLASS_ID_STATION_PROJECTILE 5
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
 
@@ -196,6 +197,13 @@ namespace Station {
 	static Vec2 getRightConnectorPosition(const Vec2& stationPosition) {
 		return stationPosition + Vec2(130, 0);
 	}
+
+	struct ProjectileParams {
+		const Vec2 position;
+		const Vec2 direction;
+
+		ProjectileParams(const Vec2& position, const Vec2& direction) : position(position), direction(direction) {}
+	};
 
 }
 

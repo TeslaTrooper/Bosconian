@@ -32,6 +32,7 @@ public:
 		objects[CLASS_ID_GAME_OBJECT] = new vector<GameObject*>();
 		objects[CLASS_ID_SHIP] = new vector<GameObject*>();
 		objects[CLASS_ID_CANNON] = new vector<GameObject*>();
+		objects[CLASS_ID_STATION_PROJECTILE] = new vector<GameObject*>();
 	}
 
 	GameObject* registerEntity(GameObject* const entity) {

@@ -29,7 +29,7 @@ public:
 		Ship* ship = entititySpawner.spawnShip();
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
 
-		entititySpawner.spawnStations();
+		stations.push_back(entititySpawner.spawnStations());
 		entititySpawner.spawnObstacles();
 	};
 
@@ -44,8 +44,12 @@ public:
 		for (int i = 0; i < objects.size(); i++)
 			objects.at(i)->update(dt);
 
-		for (int i = 0; i < stations.size(); i++)
+		for (int i = 0; i < stations.size(); i++) {
 			stations.at(i)->update(dt, entityHandler.getShip()->getPosition());
+
+			if (stations.at(i)->canShoot())
+				entititySpawner.spawnStationProjectile(stations.at(i)->getProjectileParams());
+		}
 
 		gameWorld.update(dt, entities);
 

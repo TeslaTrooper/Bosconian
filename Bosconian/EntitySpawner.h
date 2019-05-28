@@ -60,9 +60,13 @@ public:
 			spawnObstacle();
 	};
 
-	void spawnStations() const {
-		entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300));
+	StationAI* spawnStations() const {
+		return entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300));
 	};
+
+	void spawnStationProjectile(const ProjectileParams* const params) const {
+		entityFactory.createStationProjectile(params);
+	}
 
 };
 

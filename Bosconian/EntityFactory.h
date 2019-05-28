@@ -7,6 +7,7 @@
 #include "StationAI.h"
 #include "EntityHandler.h"
 #include "Cannon.h"
+#include "StationProjectile.h"
 
 #define OBSTACLE_SIZE Vec2(40, 40)
 
@@ -75,6 +76,17 @@ public:
 		entityHandler->registerEntity(rightTopNode);
 
 		return new StationAI(position);
+	}
+
+	void createStationProjectile(const ProjectileParams* const params) const {
+		GameObject* projectile = new StationProjectile(params->position);
+
+		projectile->setVMax(params->direction.length());
+		projectile->setAcceleration(params->direction.length());
+		projectile->setDirection(params->direction.norm());
+		projectile->setMovement(params->direction);
+
+		entityHandler->registerEntity(projectile);
 	}
 
 };
