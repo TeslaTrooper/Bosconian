@@ -55,27 +55,28 @@ public:
 	}
 
 	StationAI* createStation(const Vec2& position) const {
+		vector<Cannon*> childObjects;
+
 		GameObject* leftConnector = new GameObject(position, CONNECTOR_SIZE, TextureAtlas::Station::CONNECTORS);
 		GameObject* rightConnector = new GameObject(getRightConnectorPosition(position), CONNECTOR_SIZE, TextureAtlas::Station::CONNECTORS);
 		GameObject* core = new GameObject(getCorePosition(position), CORE_SIZE, TextureAtlas::Station::CORE);
-		GameObject* leftNode = new Cannon(getLeftCannonPosition(position));
-		GameObject* leftBottomNode = new Cannon(getLeftBottomCannonPosition(position));
-		GameObject* leftTopNode = new Cannon(getLeftTopCannonPosition(position));
-		GameObject* rightNode = new Cannon(getRightCannonPosition(position));
-		GameObject* rightBottomNode = new Cannon(getRightBottomCannonPosition(position));
-		GameObject* rightTopNode = new Cannon(getRightTopCannonPosition(position));
+		childObjects.push_back(new Cannon(getLeftCannonPosition(position)));
+		childObjects.push_back(new Cannon(getLeftBottomCannonPosition(position)));
+		childObjects.push_back(new Cannon(getLeftTopCannonPosition(position)));
+		childObjects.push_back(new Cannon(getRightCannonPosition(position)));
+		childObjects.push_back(new Cannon(getRightBottomCannonPosition(position)));
+		childObjects.push_back(new Cannon(getRightTopCannonPosition(position)));
 
+		// We do not need those objects inside the StationAI
+		// So we leave them out of the list of child objects
 		entityHandler->registerEntity(leftConnector);
 		entityHandler->registerEntity(rightConnector);
 		entityHandler->registerEntity(core);
-		entityHandler->registerEntity(leftNode);
-		entityHandler->registerEntity(leftBottomNode);
-		entityHandler->registerEntity(leftTopNode);
-		entityHandler->registerEntity(rightNode);
-		entityHandler->registerEntity(rightBottomNode);
-		entityHandler->registerEntity(rightTopNode);
 
-		return new StationAI(position);
+		for (GameObject* child : childObjects)
+			entityHandler->registerEntity(child);
+
+		return new StationAI(childObjects);
 	}
 
 	void createStationProjectile(const ProjectileParams* const params) const {

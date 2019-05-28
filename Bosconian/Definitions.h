@@ -112,7 +112,7 @@ namespace TextureAtlas {
 
 	namespace Station {
 		static const Rendering::Rectangle NODE			= { 4, 2, 1, 1 };
-		static const Rendering::Rectangle NODE_DAMAGEd	= { 4, 3, 1, 1 };
+		static const Rendering::Rectangle NODE_DAMAGED	= { 4, 3, 1, 1 };
 		static const Rendering::Rectangle CORE			= { 4, 7, 2, 1 };
 		static const Rendering::Rectangle CONNECTORS	= { 4, 4, 2, 3 };
 	}

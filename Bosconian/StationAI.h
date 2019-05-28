@@ -1,7 +1,9 @@
 #pragma once
 
 #include <Vec2.h>
+
 #include "Definitions.h"
+#include "Cannon.h"
 
 #define RANGE 200
 #define PROJECTILE_INTERVAL 2
@@ -15,8 +17,7 @@ class StationAI {
 	bool isActive;
 	float lifetime, lastShootingTimeStamp;
 
-	const Vec2 position;
-	vector<Vec2> cannonPositions;
+	vector<Cannon*> cannons;
 
 	ProjectileParams* projectileParams;
 
@@ -30,8 +31,8 @@ class StationAI {
 	vector<float> calcDistances(const Vec2& playerPosition) const {
 		vector<float> result;
 
-		for (int i = 0; i < cannonPositions.size(); i++)
-			result.push_back(((cannonPositions.at(i) - playerPosition)).length());
+		for (int i = 0; i < cannons.size(); i++)
+			result.push_back(((cannons.at(i)->getPosition() - playerPosition)).length());
 
 		return result;
 	}
@@ -45,14 +46,9 @@ class StationAI {
 
 public:
 
-	StationAI(const Vec2& position) : position(position), isActive(true), lifetime(0.f), lastShootingTimeStamp(0.f) {
-		cannonPositions.push_back(getLeftCannonPosition(position));
-		cannonPositions.push_back(getLeftBottomCannonPosition(position));
-		cannonPositions.push_back(getLeftTopCannonPosition(position));
-
-		cannonPositions.push_back(getRightCannonPosition(position));
-		cannonPositions.push_back(getRightBottomCannonPosition(position));
-		cannonPositions.push_back(getRightTopCannonPosition(position));
+	StationAI(const vector<Cannon*>& cannons) : isActive(true), lifetime(0.f), lastShootingTimeStamp(0.f) {
+		for (Cannon* obj : cannons)
+			this->cannons.push_back(obj);
 	}
 
 	void update(float dt, const Vec2& playerPosition) {
@@ -63,15 +59,23 @@ public:
 			return;
 
 		MinElement min = getMinDistance(calcDistances(playerPosition));
-		if (min.value > RANGE)
+		if (cannons.at(min.index)->isDamaged() || min.value > RANGE)
 			return;
 
-		Vec2 cannonPosition = cannonPositions.at(min.index);
+		Vec2 cannonPosition = cannons.at(min.index)->getPosition();
 		Vec2 projectileDirection = (playerPosition - cannonPosition).norm(PROJECTILE_SPEED);
 
 		projectileParams = new ProjectileParams(cannonPosition, projectileDirection);
 
 		lastShootingTimeStamp = lifetime;
+
+		isActive = false;
+		for (Cannon* c : cannons) {
+			if (!c->isDamaged()) {
+				isActive = true;
+				break;
+			}
+		}
 	}
 
 	bool canShoot() const {
