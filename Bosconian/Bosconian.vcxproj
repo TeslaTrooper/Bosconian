@@ -132,6 +132,7 @@
     <ClInclude Include="APIFactory.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Core.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="EntityHandler.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Connector.h" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameObject.cpp" />

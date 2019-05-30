@@ -8,11 +8,10 @@
 #include "EntityHandler.h"
 #include "Cannon.h"
 #include "StationProjectile.h"
+#include "Connector.h"
+#include "Core.h"
 
 #define OBSTACLE_SIZE Vec2(40, 40)
-
-#define CORE_SIZE IN_GAME_RASTER_SIZE * Vec2(2, 1)
-#define CONNECTOR_SIZE IN_GAME_RASTER_SIZE * Vec2(2, 3)
 
 using namespace Station;
 
@@ -64,11 +63,11 @@ public:
 	}
 
 	StationAI* createStation(const Vec2& position) const {
-		vector<Cannon*> childObjects;
+		vector<GameObject*> childObjects;
 
-		GameObject* leftConnector = new GameObject(position, CONNECTOR_SIZE, TextureAtlas::Station::CONNECTORS);
-		GameObject* rightConnector = new GameObject(getRightConnectorPosition(position), CONNECTOR_SIZE, TextureAtlas::Station::CONNECTORS);
-		GameObject* core = new GameObject(getCorePosition(position), CORE_SIZE, TextureAtlas::Station::CORE);
+		childObjects.push_back(new Connector(position));
+		childObjects.push_back(new Connector(getRightConnectorPosition(position)));
+		childObjects.push_back(new Core(getCorePosition(position)));
 		childObjects.push_back(new Cannon(getLeftCannonPosition(position)));
 		childObjects.push_back(new Cannon(getLeftBottomCannonPosition(position)));
 		childObjects.push_back(new Cannon(getLeftTopCannonPosition(position)));
@@ -76,16 +75,10 @@ public:
 		childObjects.push_back(new Cannon(getRightBottomCannonPosition(position)));
 		childObjects.push_back(new Cannon(getRightTopCannonPosition(position)));
 
-		// We do not need those objects inside the StationAI
-		// So we leave them out of the list of child objects
-		entityHandler->registerEntity(leftConnector);
-		entityHandler->registerEntity(rightConnector);
-		entityHandler->registerEntity(core);
-
 		for (GameObject* child : childObjects)
 			entityHandler->registerEntity(child);
 
-		return new StationAI(childObjects, core);
+		return new StationAI(childObjects);
 	}
 
 	void createStationProjectile(const ProjectileParams* const params) const {

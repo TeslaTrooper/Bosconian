@@ -44,14 +44,16 @@ public:
 		for (int i = 0; i < objects.size(); i++)
 			objects.at(i)->update(dt);
 
-		for (int i = 0; i < stations.size(); i++) {
-			stations.at(i)->update(dt, entityHandler.getShip()->getPosition());
+		if (entityHandler.getShip() != nullptr) {
+			for (int i = 0; i < stations.size(); i++) {
+				stations.at(i)->update(dt, entityHandler.getShip()->getPosition());
 
-			if (stations.at(i)->canShootProjectile())
-				entititySpawner.spawnStationProjectile(stations.at(i)->getProjectileParams());
+				if (stations.at(i)->canShootProjectile())
+					entititySpawner.spawnStationProjectile(stations.at(i)->getProjectileParams());
 
-			if (stations.at(i)->canShootRocket())
-				entititySpawner.spawnStationRocket(stations.at(i)->getRocketParams());
+				if (stations.at(i)->canShootRocket())
+					entititySpawner.spawnStationRocket(stations.at(i)->getRocketParams());
+			}
 		}
 
 		gameWorld.update(dt, entities);

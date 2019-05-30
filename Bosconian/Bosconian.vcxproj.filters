@@ -93,6 +93,9 @@
     <ClInclude Include="StationProjectile.h">
       <Filter>Header Files\logic\core\entities</Filter>
     </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="Ship.cpp">
       <Filter>Source Files\logic\core\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Connector.h">
+      <Filter>Header Files\logic\core\entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

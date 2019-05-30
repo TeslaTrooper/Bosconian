@@ -2,8 +2,8 @@
 
 #include <Vec2.h>
 
-#include "Definitions.h"
 #include "Cannon.h"
+#include "Connector.h"
 
 #define RANGE 200
 #define PROJECTILE_INTERVAL 2
@@ -18,7 +18,10 @@ class StationAI {
 	bool isActive;
 	float lifetime, lastShootingTimeStamp, lastRocketShootingTimeStamp;
 
-	const GameObject* const core;
+	GameObject* core;
+	Connector* connectorLeft;
+	Connector* connectorRight;
+
 	vector<Cannon*> cannons;
 
 	ProjectileParams* projectileParams;
@@ -49,7 +52,7 @@ class StationAI {
 
 	void doCannonLogic(const Vec2& playerPosition) {
 		MinElement min = getMinDistance(calcDistances(playerPosition));
-		if (cannons.at(min.index)->isDamaged() || min.value > RANGE)
+		if (cannons.at(min.index)->isDestroyed() || min.value > RANGE)
 			return;
 
 		Vec2 cannonPosition = cannons.at(min.index)->getPosition();
@@ -87,9 +90,12 @@ class StationAI {
 
 public:
 
-	StationAI(const vector<Cannon*>& cannons, const GameObject* const core) : core(core), isActive(true), lifetime(0.f), lastShootingTimeStamp(0.f) {
-		for (Cannon* obj : cannons)
-			this->cannons.push_back(obj);
+	StationAI(const vector<GameObject*>& childObjects) : core(childObjects.at(2)), isActive(true), lifetime(0.f), lastShootingTimeStamp(0.f) {
+		connectorLeft = (Connector*) childObjects.at(0);
+		connectorRight = (Connector*) childObjects.at(1);
+
+		for (int i = 3; i < 9; i++)
+			this->cannons.push_back((Cannon*) childObjects.at(i));
 	}
 
 	void update(float dt, const Vec2& playerPosition) {
@@ -107,10 +113,19 @@ public:
 			doRocketLogic(playerPosition);
 
 		isActive = false;
-		for (Cannon* c : cannons) {
+		for (GameObject* c : cannons) {
 			if (!c->isDestroyed()) {
 				isActive = true;
 				break;
+			}
+		}
+
+		if (!isActive || core->isDestroyed()) {
+			connectorLeft->destroyPart();
+			connectorRight->destroyPart();
+
+			for (Cannon* c : cannons) {
+				c->destroyPart();
 			}
 		}
 	}
