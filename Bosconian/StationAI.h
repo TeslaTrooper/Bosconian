@@ -108,7 +108,7 @@ public:
 
 		isActive = false;
 		for (Cannon* c : cannons) {
-			if (!c->isDamaged()) {
+			if (!c->isDestroyed()) {
 				isActive = true;
 				break;
 			}

@@ -2,6 +2,7 @@
 #define DEFINITIONS
 
 #include <structs.h>
+#include <map>
 
 // Generall definitions
 #define WIN_POS_X	50
@@ -134,6 +135,24 @@ namespace TextureAtlas {
 
 	namespace Background {
 		static const Rendering::Rectangle RECT = { 0, 0, 4, 4 };
+	}
+
+	namespace Explosion {
+		static const Rendering::Rectangle EXP_1 = { 5, 3, 1, 1 };
+		static const Rendering::Rectangle EXP_2 = { 5, 2, 1, 1 };
+		static const Rendering::Rectangle EXP_3 = { 5, 1, 1, 1 };
+		static const Rendering::Rectangle EXP_4 = { 5, 0, 1, 1 };
+		static const Rendering::Rectangle EXP_5 = { 6, 0, 1, 1 };
+		static const Rendering::Rectangle EXP_6 = { 6, 1, 1, 1 };
+
+		static const map<int, Rendering::Rectangle> expMap = {
+			{ 0, EXP_1 },
+			{ 1, EXP_2 },
+			{ 2, EXP_3 },
+			{ 3, EXP_4 },
+			{ 4, EXP_5 },
+			{ 5, EXP_6 },
+		};
 	}
 
 }

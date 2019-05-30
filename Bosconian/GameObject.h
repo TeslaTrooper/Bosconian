@@ -1,18 +1,23 @@
 #ifndef GAME_OBJECT
 #define GAME_OBJECT
 
+#define SPRITE_DURATION 0.1f
+
 #include <Entity.h>
 #include <vector>
 
 #include "Definitions.h"
 
 using namespace Rendering;
+using namespace TextureAtlas::Explosion;
 
 class GameObject : public Entity {
 
-	float lifetime, maxLifetime;
-	bool isAlive;
+	float lifetime, maxLifetime, destructionTimeStamp;
+	bool destroyed, canBeCleanedUp;
 	Rectangle sprite;
+
+	void checkForDestructionAnimation();
 
 public:
 
@@ -27,8 +32,13 @@ public:
 	VertexData getVertexData() const override;
 	IndexData getTriangulatedIndexData() const override;
 
-	void die() { isAlive = false; };
-	bool isDead() { return !isAlive; };
+	virtual void destroy();
+	virtual bool canAnimate() { return true; }
+	virtual void afterDestruction() { canBeCleanedUp = true; }
+
+	void markForCleanup() { canBeCleanedUp = true; }
+	bool readyForCleanup() { return canBeCleanedUp; }
+	bool isDestroyed() { return destroyed; }
 
 	virtual int getClassId() const {
 		return CLASS_ID_GAME_OBJECT;

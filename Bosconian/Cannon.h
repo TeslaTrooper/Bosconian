@@ -14,8 +14,21 @@ public:
 	Cannon(const Vec2& position) : GameObject(position, IN_GAME_RASTER_SIZE, NODE), damaged(false) {}
 
 	void update(const float dt) override {
+		GameObject::update(dt);
+
 		if (damaged)
 			sprite = NODE_DAMAGED;
+	}
+
+	void afterDestruction() override {
+		damaged = true;
+		setBbox(getBbox() / 2);
+		setPosition(getPosition() + getBbox() / 2);
+		updateTransformation();
+	}
+
+	bool canAnimate() override {
+		return !damaged;
 	}
 
 	bool canCollideWith(const Entity* const e) const override {

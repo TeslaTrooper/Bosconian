@@ -4,10 +4,10 @@ void GameLogic::resolveCollision(Entity * e1, Entity * e2, const Vec2& location)
 	GameObject* o1 = (GameObject*) e1;
 	GameObject* o2 = (GameObject*) e2;
 
-	if (o1->getClassId() == CLASS_ID_GAME_OBJECT)
-		o1->die();
-	else if (o2->getClassId() == CLASS_ID_GAME_OBJECT)
-		o2->die();
+	if (o1->getClassId() != CLASS_ID_SHIP)
+		o1->destroy();
+	if (o2->getClassId() != CLASS_ID_SHIP)
+		o2->destroy();
 }
 
 vector<RenderUnit> GameLogic::getRenderUnits() const {

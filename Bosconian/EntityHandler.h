@@ -45,7 +45,7 @@ public:
 	void cleanupDeadEntities() const {
 		for (const pair<int, vector<GameObject*>*> pair : objects)
 			for (int i = 0; i < pair.second->size(); i++)
-				if (pair.second->at(i)->isDead())
+				if (pair.second->at(i)->readyForCleanup())
 					deRegisterEntity(pair.second->at(i));
 	}
 
