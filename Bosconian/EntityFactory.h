@@ -20,6 +20,15 @@ class EntityFactory {
 
 	EntityHandler* const entityHandler;
 
+	void configureProjectile(const ProjectileParams* const params, GameObject* const object) const {
+		object->setVMax(params->direction.length());
+		object->setAcceleration(params->direction.length());
+		object->setDirection(params->direction.norm());
+		object->setMovement(params->direction);
+
+		entityHandler->registerEntity(object);
+	}
+
 public:
 
 	EntityFactory(EntityHandler* const entityHandler) :
@@ -76,18 +85,19 @@ public:
 		for (GameObject* child : childObjects)
 			entityHandler->registerEntity(child);
 
-		return new StationAI(childObjects);
+		return new StationAI(childObjects, core);
 	}
 
 	void createStationProjectile(const ProjectileParams* const params) const {
-		GameObject* projectile = new StationProjectile(params->position);
+		GameObject* projectile = new StationProjectile(params->position /*, SPRITE_PROJECTILE */ );
 
-		projectile->setVMax(params->direction.length());
-		projectile->setAcceleration(params->direction.length());
-		projectile->setDirection(params->direction.norm());
-		projectile->setMovement(params->direction);
+		configureProjectile(params, projectile);
+	}
 
-		entityHandler->registerEntity(projectile);
+	void createStationRocket(const ProjectileParams* const params) const {
+		GameObject* rocket = new StationProjectile(params->position /*, SPRITE_ROCKET */ );
+
+		configureProjectile(params, rocket);
 	}
 
 };

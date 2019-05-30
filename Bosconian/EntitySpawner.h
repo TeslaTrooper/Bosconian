@@ -58,13 +58,17 @@ public:
 	void spawnObstacles() const {
 		for (int i = 0; i < OBSTACLE_COUNT; i++)
 			spawnObstacle();
-	};
+	}
 
 	StationAI* spawnStations() const {
 		return entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300));
-	};
+	}
 
 	void spawnStationProjectile(const ProjectileParams* const params) const {
+		entityFactory.createStationProjectile(params);
+	}
+
+	void spawnStationRocket(const ProjectileParams* const params) const {
 		entityFactory.createStationProjectile(params);
 	}
 

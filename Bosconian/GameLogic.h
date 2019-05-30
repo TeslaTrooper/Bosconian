@@ -47,8 +47,11 @@ public:
 		for (int i = 0; i < stations.size(); i++) {
 			stations.at(i)->update(dt, entityHandler.getShip()->getPosition());
 
-			if (stations.at(i)->canShoot())
+			if (stations.at(i)->canShootProjectile())
 				entititySpawner.spawnStationProjectile(stations.at(i)->getProjectileParams());
+
+			if (stations.at(i)->canShootRocket())
+				entititySpawner.spawnStationRocket(stations.at(i)->getRocketParams());
 		}
 
 		gameWorld.update(dt, entities);

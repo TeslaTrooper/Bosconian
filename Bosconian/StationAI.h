@@ -9,17 +9,20 @@
 #define PROJECTILE_INTERVAL 2
 #define ROCKET_INTERVAL 5
 #define PROJECTILE_SPEED 150
+#define ROCKET_SPEED 250
 
 using namespace Station;
 
 class StationAI {
 
 	bool isActive;
-	float lifetime, lastShootingTimeStamp;
+	float lifetime, lastShootingTimeStamp, lastRocketShootingTimeStamp;
 
+	const GameObject* const core;
 	vector<Cannon*> cannons;
 
 	ProjectileParams* projectileParams;
+	ProjectileParams* rocketParams;
 
 	struct MinElement {
 		const int index;
@@ -44,20 +47,7 @@ class StationAI {
 		return { index, *iter };
 	}
 
-public:
-
-	StationAI(const vector<Cannon*>& cannons) : isActive(true), lifetime(0.f), lastShootingTimeStamp(0.f) {
-		for (Cannon* obj : cannons)
-			this->cannons.push_back(obj);
-	}
-
-	void update(float dt, const Vec2& playerPosition) {
-		lifetime += dt;
-		projectileParams = nullptr;
-
-		if (!isActive || (lifetime - lastShootingTimeStamp) <= PROJECTILE_INTERVAL)
-			return;
-
+	void doCannonLogic(const Vec2& playerPosition) {
 		MinElement min = getMinDistance(calcDistances(playerPosition));
 		if (cannons.at(min.index)->isDamaged() || min.value > RANGE)
 			return;
@@ -68,6 +58,53 @@ public:
 		projectileParams = new ProjectileParams(cannonPosition, projectileDirection);
 
 		lastShootingTimeStamp = lifetime;
+	}
+
+	bool isPlayerInArea(const Vec2& playerPosition) const {
+		const Vec2& corePosition = core->getPosition();
+		const Vec2& coreBbox = core->getBbox();
+
+		return playerPosition.x >= corePosition.x && playerPosition.x <= corePosition.x + coreBbox.x;
+	}
+
+	void doRocketLogic(const Vec2& playerPosition) {
+		if (!isPlayerInArea(playerPosition))
+			return;
+
+		Vec2 coreCenter = core->getPosition() + (core->getBbox() / 2);
+		float distance = (coreCenter - playerPosition).length();
+
+		if (distance > RANGE)
+			return;
+
+		if (playerPosition.y < coreCenter.y)
+			rocketParams = new ProjectileParams(coreCenter, Vec2(0, -1).mul(ROCKET_SPEED));
+		else
+			rocketParams = new ProjectileParams(coreCenter, Vec2(0, 1).mul(ROCKET_SPEED));
+
+		lastRocketShootingTimeStamp = lifetime;
+	}
+
+public:
+
+	StationAI(const vector<Cannon*>& cannons, const GameObject* const core) : core(core), isActive(true), lifetime(0.f), lastShootingTimeStamp(0.f) {
+		for (Cannon* obj : cannons)
+			this->cannons.push_back(obj);
+	}
+
+	void update(float dt, const Vec2& playerPosition) {
+		lifetime += dt;
+		projectileParams = nullptr;
+		rocketParams = nullptr;
+
+		if (!isActive)
+			return;
+
+		if ((lifetime - lastShootingTimeStamp) > PROJECTILE_INTERVAL)
+			doCannonLogic(playerPosition);
+
+		if ((lifetime - lastRocketShootingTimeStamp) > PROJECTILE_INTERVAL)
+			doRocketLogic(playerPosition);
 
 		isActive = false;
 		for (Cannon* c : cannons) {
@@ -78,12 +115,20 @@ public:
 		}
 	}
 
-	bool canShoot() const {
+	bool canShootProjectile() const {
 		return projectileParams != nullptr;
+	}
+
+	bool canShootRocket() const {
+		return rocketParams != nullptr;
 	}
 
 	ProjectileParams* getProjectileParams() const {
 		return projectileParams;
+	}
+
+	ProjectileParams* getRocketParams() const {
+		return rocketParams;
 	}
 
 };
