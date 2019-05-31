@@ -98,13 +98,15 @@ public:
 			this->cannons.push_back((Cannon*) childObjects.at(i));
 	}
 
-	void update(float dt, const Vec2& playerPosition) {
+	void update(float dt, const GameObject* const player) {
 		lifetime += dt;
 		projectileParams = nullptr;
 		rocketParams = nullptr;
 
-		if (!isActive)
+		if (!isActive || player == nullptr)
 			return;
+
+		const Vec2& playerPosition = player->getPosition();
 
 		if ((lifetime - lastShootingTimeStamp) > PROJECTILE_INTERVAL)
 			doCannonLogic(playerPosition);
@@ -144,6 +146,10 @@ public:
 
 	ProjectileParams* getRocketParams() const {
 		return rocketParams;
+	}
+
+	bool inactive() {
+		return !isActive;
 	}
 
 };

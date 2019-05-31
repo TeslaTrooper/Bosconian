@@ -140,6 +140,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameStats.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="StationAI.h" />

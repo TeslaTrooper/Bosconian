@@ -14,6 +14,8 @@ struct Game : public InternalLogic {
 
 	virtual void setShipDirection(int direction) const = 0;
 
+	virtual int getScore() const = 0;
+
 };
 
 #endif GAME
