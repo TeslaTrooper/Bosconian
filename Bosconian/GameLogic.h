@@ -64,8 +64,6 @@ public:
 
 		Ship* ship = entititySpawner.spawnShip();
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
-		entititySpawner.spawnEnemy1(DEFAULT_SHIP_START_POSITION + Vec2(100, 0));
-
 		stations.push_back(entititySpawner.spawnStations());
 		entititySpawner.spawnObstacles();
 	};

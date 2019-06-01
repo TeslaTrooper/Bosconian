@@ -68,7 +68,7 @@ RenderUnit GameObject::getRenderUnit() const {
 }
 
 bool GameObject::canCollide() const {
-	return true;
+	return !destroyed;
 }
 
 bool GameObject::canCollideWith(const Entity * const e) const {
