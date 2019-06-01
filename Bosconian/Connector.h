@@ -17,6 +17,10 @@ public:
 		return o->getClassId() == CLASS_ID_SHIP || o->getClassId() == CLASS_ID_SHIP_PROJECTILE;
 	};
 
+	int getClassId() const override {
+		return CLASS_ID_STATION_CONNECTOR;
+	}
+
 	void destroy() override {}
 
 	void destroyPart() {

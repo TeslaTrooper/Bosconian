@@ -72,6 +72,10 @@ public:
 		entityFactory.createStationProjectile(params);
 	}
 
+	void spawnEnemy1(const Vec2& position) {
+		entityFactory.createEnemy1(position);
+	}
+
 };
 
 #endif ENTITY_SPAWNER

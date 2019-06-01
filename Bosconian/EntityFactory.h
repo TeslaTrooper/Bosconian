@@ -10,10 +10,8 @@
 #include "StationProjectile.h"
 #include "Connector.h"
 #include "Core.h"
-
-#define OBSTACLE_SIZE Vec2(40, 40)
-
-using namespace Station;
+#include "Enemy.h"
+#include "Obstacle.h"
 
 class EntityFactory {
 
@@ -45,7 +43,7 @@ public:
 	}
 
 	GameObject* createAsteroid(const Vec2& position) const {
-		GameObject* asteroid = new GameObject(position, OBSTACLE_SIZE, TextureAtlas::Obstacle::ASTEROID);
+		GameObject* asteroid = new Obstacle(position, TextureAtlas::Obstacle::ASTEROID);
 
 		asteroid->setVMax(0);
 		asteroid->setAcceleration(0);
@@ -54,7 +52,7 @@ public:
 	}
 
 	GameObject* createMine(const Vec2& position) const {
-		GameObject* mine = new GameObject(position, OBSTACLE_SIZE, TextureAtlas::Obstacle::MINE);
+		GameObject* mine = new Obstacle(position, TextureAtlas::Obstacle::MINE);
 
 		mine->setVMax(0);
 		mine->setAcceleration(0);
@@ -91,6 +89,16 @@ public:
 		GameObject* rocket = new StationProjectile(params->position /*, SPRITE_ROCKET */ );
 
 		configureProjectile(params, rocket);
+	}
+
+	void createEnemy1(const Vec2& position) const {
+		GameObject* enemy = new Enemy(position, TextureAtlas::Enemy1::SPRITE_UP);
+
+		enemy->setVMax(100);
+		enemy->setAcceleration(100);
+		enemy->setDirection(Vec2(0, 1));
+
+		entityHandler->registerEntity(enemy);
 	}
 
 };

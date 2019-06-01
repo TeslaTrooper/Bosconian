@@ -55,10 +55,10 @@ class StationAI {
 		if (cannons.at(min.index)->isDestroyed() || min.value > RANGE)
 			return;
 
-		Vec2 cannonPosition = cannons.at(min.index)->getPosition();
+		Vec2 cannonPosition = cannons.at(min.index)->getPosition() + (cannons.at(min.index)->getBbox() / 2);
 		Vec2 projectileDirection = (playerPosition - cannonPosition).norm(PROJECTILE_SPEED);
 
-		projectileParams = new ProjectileParams(cannonPosition, projectileDirection);
+		projectileParams = new ProjectileParams(cannonPosition - (IN_GAME_RASTER_SIZE / 4), projectileDirection);
 
 		lastShootingTimeStamp = lifetime;
 	}
@@ -106,7 +106,7 @@ public:
 		if (!isActive || player == nullptr)
 			return;
 
-		const Vec2& playerPosition = player->getPosition();
+		const Vec2& playerPosition = player->getPosition() + (player->getBbox() / 2);
 
 		if ((lifetime - lastShootingTimeStamp) > PROJECTILE_INTERVAL)
 			doCannonLogic(playerPosition);
