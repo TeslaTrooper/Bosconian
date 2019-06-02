@@ -25,6 +25,15 @@
 #define DIRECTION_RIGHT_UP		6
 #define DIRECTION_RIGHT_DOWN	7
 
+#define QUADRANT_RIGHT_TOP		1
+#define QUADRANT_LEFT_TOP		2
+#define QUADRANT_LEFT_BOTTOM	3
+#define QUADRANT_RIGHT_BOTTOM	4
+
+#define ENEMY_TYPE_1	1
+#define ENEMY_TYPE_2	2
+#define ENEMY_TYPE_SPY	3
+
 #define CLASS_ID_GAME_OBJECT		0
 #define CLASS_ID_SHIP				1
 #define CLASS_ID_SHIP_PROJECTILE	2
@@ -89,24 +98,57 @@ namespace TextureAtlas {
 	}
 
 	namespace Enemy1 {
-		static const Rendering::Rectangle SPRITE_UP		= { 1, 0, 1, 1 };
-		static const Rendering::Rectangle SPRITE_DOWN	= { 1, 1, 1, 1 };
-		static const Rendering::Rectangle SPRITE_LEFT	= { 1, 2, 1, 1 };
-		static const Rendering::Rectangle SPRITE_RIGHT	= { 1, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_UP			= { 1, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN		= { 1, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT		= { 1, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT		= { 1, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_UP	= { 1, 4, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { 1, 5, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_UP	= { 1, 6, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { 1, 7, 1, 1 };
+
+		const map<int, vector<Rendering::Rectangle>> spriteMap = {
+			{ QUADRANT_RIGHT_TOP,		{ SPRITE_UP, SPRITE_RIGHT_UP, SPRITE_RIGHT } },
+			{ QUADRANT_LEFT_TOP,		{ SPRITE_UP, SPRITE_LEFT_UP, SPRITE_LEFT } },
+			{ QUADRANT_LEFT_BOTTOM,		{ SPRITE_LEFT, SPRITE_LEFT_DOWN, SPRITE_DOWN } },
+			{ QUADRANT_RIGHT_BOTTOM,	{ SPRITE_RIGHT, SPRITE_RIGHT_DOWN, SPRITE_DOWN } }
+		};
 	}
 
 	namespace Enemy2 {
-		static const Rendering::Rectangle SPRITE_UP		= { 2, 0, 1, 1 };
-		static const Rendering::Rectangle SPRITE_DOWN	= { 2, 1, 1, 1 };
-		static const Rendering::Rectangle SPRITE_LEFT	= { 2, 2, 1, 1 };
-		static const Rendering::Rectangle SPRITE_RIGHT	= { 2, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_UP			= { 2, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN		= { 2, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT		= { 2, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT		= { 2, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_UP	= { 2, 4, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { 2, 5, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_UP	= { 2, 6, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { 2, 7, 1, 1 };
+
+		const map<int, vector<Rendering::Rectangle>> spriteMap = {
+			{ QUADRANT_RIGHT_TOP,		{ SPRITE_UP, SPRITE_RIGHT_UP, SPRITE_RIGHT } },
+			{ QUADRANT_LEFT_TOP,		{ SPRITE_UP, SPRITE_LEFT_UP, SPRITE_LEFT } },
+			{ QUADRANT_LEFT_BOTTOM,		{ SPRITE_LEFT, SPRITE_LEFT_DOWN, SPRITE_DOWN } },
+			{ QUADRANT_RIGHT_BOTTOM,	{ SPRITE_RIGHT, SPRITE_RIGHT_DOWN, SPRITE_DOWN } }
+		};
 	}
 
 	namespace Spy {
-		static const Rendering::Rectangle SPRITE_UP		= { 3, 0, 1, 1 };
-		static const Rendering::Rectangle SPRITE_DOWN	= { 3, 1, 1, 1 };
-		static const Rendering::Rectangle SPRITE_LEFT	= { 3, 2, 1, 1 };
-		static const Rendering::Rectangle SPRITE_RIGHT  = { 3, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_UP			= { 3, 0, 1, 1 };
+		static const Rendering::Rectangle SPRITE_DOWN		= { 3, 1, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT		= { 3, 2, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT		= { 3, 3, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_UP	= { 3, 4, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { 3, 5, 1, 1 };
+		static const Rendering::Rectangle SPRITE_LEFT_UP	= { 3, 6, 1, 1 };
+		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { 3, 7, 1, 1 };
+
+		const map<int, vector<Rendering::Rectangle>> spriteMap = {
+			{ QUADRANT_RIGHT_TOP,		{ SPRITE_UP, SPRITE_RIGHT_UP, SPRITE_RIGHT } },
+			{ QUADRANT_LEFT_TOP,		{ SPRITE_UP, SPRITE_LEFT_UP, SPRITE_LEFT } },
+			{ QUADRANT_LEFT_BOTTOM,		{ SPRITE_LEFT, SPRITE_LEFT_DOWN, SPRITE_DOWN } },
+			{ QUADRANT_RIGHT_BOTTOM,	{ SPRITE_RIGHT, SPRITE_RIGHT_DOWN, SPRITE_DOWN } }
+		};
 	}
 
 	namespace Obstacle {

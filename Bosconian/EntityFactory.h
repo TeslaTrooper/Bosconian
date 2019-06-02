@@ -91,14 +91,16 @@ public:
 		configureProjectile(params, rocket);
 	}
 
-	void createEnemy1(const Vec2& position) const {
-		GameObject* enemy = new Enemy(position, TextureAtlas::Enemy1::SPRITE_UP);
+	void createEnemy1(const Vec2& position, const GameObject* const player) const {
+		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_1, player));
+	}
 
-		enemy->setVMax(100);
-		enemy->setAcceleration(100);
-		enemy->setDirection(Vec2(0, 1));
+	void createEnemy2(const Vec2& position, const GameObject* const player) const {
+		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_2, player));
+	}
 
-		entityHandler->registerEntity(enemy);
+	void createSpy(const Vec2& position, const GameObject* const player) const {
+		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_SPY, player));
 	}
 
 };

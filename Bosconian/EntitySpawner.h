@@ -72,8 +72,16 @@ public:
 		entityFactory.createStationProjectile(params);
 	}
 
-	void spawnEnemy1(const Vec2& position) {
-		entityFactory.createEnemy1(position);
+	void spawnEnemy1(const Vec2& position, const GameObject* const player) {
+		entityFactory.createEnemy1(position, player);
+	}
+
+	void spawnEnemy2(const Vec2& position, const GameObject* const player) {
+		entityFactory.createEnemy2(position, player);
+	}
+
+	void spawnSpy(const Vec2& position, const GameObject* const player) {
+		entityFactory.createSpy(position, player);
 	}
 
 };

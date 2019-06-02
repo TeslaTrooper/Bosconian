@@ -99,8 +99,6 @@ void Renderer::renderHUD() const {
 	Vec2 roundPosition = Vec2(180, 50);
 	prepareHUDShader({ Mat4::getTransformation(roundPosition, Vec2(20, 20)), TextureAtlas::Font::ONE });
 	draw(data);
-
-	printf("Score: %i\n", game->getScore());
 }
 
 void Renderer::prepareStandardShader(const RenderUnit unit) const {

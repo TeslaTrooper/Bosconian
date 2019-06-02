@@ -66,6 +66,10 @@ public:
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
 		stations.push_back(entititySpawner.spawnStations());
 		entititySpawner.spawnObstacles();
+
+		entititySpawner.spawnEnemy2(Vec2(DEFAULT_SHIP_START_POSITION - Vec2(500, 0)), entityHandler.getShip());
+		entititySpawner.spawnEnemy1(Vec2(DEFAULT_SHIP_START_POSITION - Vec2(300, 100)), entityHandler.getShip());
+		entititySpawner.spawnSpy(Vec2(DEFAULT_SHIP_START_POSITION - Vec2(100, 0)), entityHandler.getShip());
 	};
 
 	~GameLogic() {};
