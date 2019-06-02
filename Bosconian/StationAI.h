@@ -125,6 +125,7 @@ public:
 		if (!isActive || core->isDestroyed()) {
 			connectorLeft->destroyPart();
 			connectorRight->destroyPart();
+			core->destroy();
 
 			for (Cannon* c : cannons) {
 				c->destroyPart();
