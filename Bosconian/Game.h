@@ -16,6 +16,10 @@ struct Game : public InternalLogic {
 
 	virtual int getScore() const = 0;
 
+	virtual int getRemainingLifes() = 0;
+
+	virtual int getLevel() = 0;
+
 };
 
 #endif GAME

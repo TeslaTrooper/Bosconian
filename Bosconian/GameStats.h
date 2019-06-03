@@ -13,6 +13,8 @@ public:
 	void decreaseRemainingLifes() { remainingLifes--; }
 
 	int getScore() const { return score; }
+	int getRemainingLifes() const { return remainingLifes; }
+	int getLevel() const { return level; }
 
 };
 

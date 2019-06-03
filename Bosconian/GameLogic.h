@@ -71,12 +71,15 @@ public:
 
 		Ship* ship = entititySpawner.spawnShip();
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
-		stations.push_back(entititySpawner.spawnStations());
+		const vector<StationAI*>& stations = entititySpawner.spawnStations();
+		for (StationAI* const station : stations)
+			this->stations.push_back(station);
+
 		entititySpawner.spawnObstacles();
 		entititySpawner.spawnEnemy2(DEFAULT_SHIP_START_POSITION - Vec2(200, 100), entityHandler.getShip());
 
 		formations.push_back(entititySpawner.spawnFormation(DEFAULT_SHIP_START_POSITION - Vec2(500, 0), entityHandler.getShip()));
-	};
+	}
 
 	~GameLogic() {};
 
@@ -89,7 +92,7 @@ public:
 
 		entityHandler.cleanupDeadEntities();
 		removeInactiveStations();
-	};
+	}
 
 	vector<RenderUnit> getRenderUnits() const override;
 
@@ -100,7 +103,7 @@ public:
 			return;
 
 		ship->move(direction);
-	};
+	}
 
 	Mat4 getCameraTransformation() const override {
 		return camera->getTransformation();
@@ -108,6 +111,14 @@ public:
 
 	int getScore() const {
 		return stats->getScore();
+	}
+
+	int getRemainingLifes() override {
+		return stats->getRemainingLifes();
+	}
+
+	int getLevel() override {
+		return stats->getLevel();
 	}
 
 };
