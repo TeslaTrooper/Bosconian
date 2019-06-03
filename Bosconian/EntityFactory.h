@@ -12,6 +12,8 @@
 #include "Core.h"
 #include "Enemy.h"
 #include "Obstacle.h"
+#include "Formation.h"
+#include "Member.h"
 
 class EntityFactory {
 
@@ -101,6 +103,23 @@ public:
 
 	void createSpy(const Vec2& position, const GameObject* const player) const {
 		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_SPY, player));
+	}
+
+	Formation* createFormation(const Vec2& position, const GameObject* const player) const {
+		GameObject* leader = new Enemy(position, ENEMY_TYPE_1, player);
+
+		vector<Member*> formationMembers;
+		formationMembers.push_back(new Member(position - Vec2(75, 0), ENEMY_TYPE_1, player));
+		formationMembers.push_back(new Member(position + Vec2(75, 0), ENEMY_TYPE_1, player));
+		formationMembers.push_back(new Member(position - Vec2(0, 75), ENEMY_TYPE_1, player));
+		formationMembers.push_back(new Member(position + Vec2(0, 75), ENEMY_TYPE_1, player));
+
+		for (GameObject* const o : formationMembers)
+			entityHandler->registerEntity(o);
+
+		entityHandler->registerEntity(leader);
+
+		return new Formation(leader, formationMembers);
 	}
 
 };

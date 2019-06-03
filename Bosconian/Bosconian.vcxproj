@@ -138,10 +138,12 @@
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="EntityHandler.h" />
     <ClInclude Include="EntitySpawner.h" />
+    <ClInclude Include="Formation.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStats.h" />
+    <ClInclude Include="Member.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Ship.h" />

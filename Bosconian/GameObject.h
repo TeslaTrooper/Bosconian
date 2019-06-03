@@ -47,6 +47,7 @@ public:
 	friend class Ship;
 	friend class Cannon;
 	friend class Enemy;
+	friend class Formation;
 
 };
 

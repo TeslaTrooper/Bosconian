@@ -105,6 +105,12 @@
     <ClInclude Include="Obstacle.h">
       <Filter>Header Files\logic\core\entities</Filter>
     </ClInclude>
+    <ClInclude Include="Formation.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Member.h">
+      <Filter>Header Files\logic\core\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">

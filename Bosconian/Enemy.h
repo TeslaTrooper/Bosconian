@@ -98,7 +98,7 @@ class Enemy : public GameObject {
 		// 6. This index can now be used to choose the -best- direction
 		//	  out of the 3 possible directions
 		setDirection(possibleDirections.at(greatestValueIndex));
-		setMovement(possibleDirections.at(greatestValueIndex).norm(SHIP_SPEED/2));
+		setMovement(possibleDirections.at(greatestValueIndex).norm(ENEMY_SPEED));
 		changeSpriteToDirection(quadrant, greatestValueIndex);
 	}
 

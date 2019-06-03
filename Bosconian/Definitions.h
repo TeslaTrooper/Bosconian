@@ -46,6 +46,9 @@
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
 
+#define SHIP_SPEED	100
+#define ENEMY_SPEED SHIP_SPEED / 2
+
 namespace Rendering {
 
 	struct Rectangle {

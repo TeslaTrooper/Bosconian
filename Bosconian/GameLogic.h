@@ -22,6 +22,7 @@ class GameLogic : public Game, public CollisionCallback {
 	Camera* camera;
 	GameStats* stats;
 	vector<StationAI*> stations;
+	vector<Formation*> formations;
 
 	void resolveCollision(Entity* e1, Entity* e2, const Vec2& location) const override;
 
@@ -47,9 +48,15 @@ class GameLogic : public Game, public CollisionCallback {
 			objects.at(i)->update(dt);
 	}
 
+	void updateFormations(float dt) {
+		for (int i = 0; i < formations.size(); i++)
+			formations.at(i)->update(dt);
+	}
+
 	void updateEntites(float dt) {
 		updateGameObjects(dt);
 		updateStations(dt);
+		updateFormations(dt);
 	}
 
 	void removeInactiveStations() {
@@ -66,10 +73,9 @@ public:
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
 		stations.push_back(entititySpawner.spawnStations());
 		entititySpawner.spawnObstacles();
+		entititySpawner.spawnEnemy2(DEFAULT_SHIP_START_POSITION - Vec2(200, 100), entityHandler.getShip());
 
-		entititySpawner.spawnEnemy2(Vec2(DEFAULT_SHIP_START_POSITION - Vec2(500, 0)), entityHandler.getShip());
-		entititySpawner.spawnEnemy1(Vec2(DEFAULT_SHIP_START_POSITION - Vec2(300, 100)), entityHandler.getShip());
-		entititySpawner.spawnSpy(Vec2(DEFAULT_SHIP_START_POSITION - Vec2(100, 0)), entityHandler.getShip());
+		formations.push_back(entititySpawner.spawnFormation(DEFAULT_SHIP_START_POSITION - Vec2(500, 0), entityHandler.getShip()));
 	};
 
 	~GameLogic() {};

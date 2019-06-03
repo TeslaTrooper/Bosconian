@@ -3,8 +3,6 @@
 
 #include "GameObject.h"
 
-#define SHIP_SPEED 100
-
 using namespace TextureAtlas::Ship;
 
 class Ship : public GameObject {
