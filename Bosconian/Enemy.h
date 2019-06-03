@@ -9,10 +9,10 @@ class Enemy : public GameObject {
 	const GameObject* const player;
 
 	const map<int, vector<Vec2>> quadrantDirectionMap = {
-		{ QUADRANT_RIGHT_TOP,		{ Vec2(0, 1), Vec2(1, 1).norm(), Vec2(1, 0) } },
-		{ QUADRANT_LEFT_TOP,		{ Vec2(0, 1), Vec2(-1, 1).norm(), Vec2(-1, 0) } },
-		{ QUADRANT_LEFT_BOTTOM,		{ Vec2(-1, 0), Vec2(-1, -1).norm(), Vec2(0, -1) } },
-		{ QUADRANT_RIGHT_BOTTOM,	{ Vec2(1, 0), Vec2(1, -1).norm(), Vec2(0, -1) } }
+		{ QUADRANT_RIGHT_TOP,		{ VECTOR_UP, VECTOR_RIGHT_UP, VECTOR_RIGHT } },
+		{ QUADRANT_LEFT_TOP,		{ VECTOR_UP, VECTOR_LEFT_UP, VECTOR_LEFT } },
+		{ QUADRANT_LEFT_BOTTOM,		{ VECTOR_LEFT, VECTOR_LEFT_DOWN, VECTOR_DOWN } },
+		{ QUADRANT_RIGHT_BOTTOM,	{ VECTOR_RIGHT, VECTOR_RIGHT_DOWN, VECTOR_DOWN } }
 	};
 
 	int determineQuadrant() const {

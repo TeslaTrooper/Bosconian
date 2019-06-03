@@ -25,6 +25,15 @@
 #define DIRECTION_RIGHT_UP		6
 #define DIRECTION_RIGHT_DOWN	7
 
+#define VECTOR_LEFT			Vec2(-1, 0)
+#define VECTOR_UP			Vec2(0, 1)
+#define VECTOR_RIGHT		Vec2(1, 0)
+#define VECTOR_DOWN			Vec2(0, -1)
+#define VECTOR_LEFT_UP		Vec2(-1, 1).norm()
+#define VECTOR_LEFT_DOWN	Vec2(-1, -1).norm()
+#define VECTOR_RIGHT_UP		Vec2(1, 1).norm()
+#define VECTOR_RIGHT_DOWN	Vec2(1, -1).norm()
+
 #define QUADRANT_RIGHT_TOP		1
 #define QUADRANT_LEFT_TOP		2
 #define QUADRANT_LEFT_BOTTOM	3
@@ -48,6 +57,21 @@
 
 #define SHIP_SPEED	100
 #define ENEMY_SPEED SHIP_SPEED / 2
+
+namespace Direction {
+
+	const map<int, Vec2> mapping = {
+		{DIRECTION_LEFT, VECTOR_LEFT},
+		{DIRECTION_UP, VECTOR_UP},
+		{DIRECTION_RIGHT, VECTOR_RIGHT},
+		{DIRECTION_DOWN, VECTOR_DOWN},
+		{DIRECTION_LEFT_UP, VECTOR_LEFT_UP},
+		{DIRECTION_LEFT_DOWN, VECTOR_LEFT_DOWN},
+		{DIRECTION_RIGHT_UP, VECTOR_RIGHT_UP},
+		{DIRECTION_RIGHT_DOWN, VECTOR_RIGHT_DOWN}
+	};
+
+}
 
 namespace Rendering {
 
@@ -98,6 +122,17 @@ namespace TextureAtlas {
 		static const Rendering::Rectangle SPRITE_LEFT_DOWN	= { 0, 5, 1, 1 };
 		static const Rendering::Rectangle SPRITE_LEFT_UP	= { 0, 6, 1, 1 };
 		static const Rendering::Rectangle SPRITE_RIGHT_DOWN = { 0, 7, 1, 1 };
+
+		const map<int, Rendering::Rectangle> spriteMap = {
+			{ DIRECTION_LEFT, SPRITE_LEFT },
+			{ DIRECTION_UP, SPRITE_UP },
+			{ DIRECTION_RIGHT, SPRITE_RIGHT },
+			{ DIRECTION_DOWN, SPRITE_DOWN },
+			{ DIRECTION_LEFT_UP, SPRITE_LEFT_UP },
+			{ DIRECTION_LEFT_DOWN, SPRITE_LEFT_DOWN },
+			{ DIRECTION_RIGHT_UP, SPRITE_RIGHT_UP },
+			{ DIRECTION_RIGHT_DOWN, SPRITE_RIGHT_DOWN }
+		};
 	}
 
 	namespace Enemy1 {
