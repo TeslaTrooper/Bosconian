@@ -11,7 +11,7 @@ class StationProjectile : public GameObject {
 
 public:
 
-	StationProjectile(const Vec2& position, const Rendering::Rectangle sprite) : GameObject(position, IN_GAME_RASTER_SIZE, sprite) {}
+	StationProjectile(const Vec2& position, const Vec2& size, const Rendering::Rectangle sprite) : GameObject(position, size, sprite) {}
 
 	bool canCollideWith(const Entity* const e) const override {
 		GameObject* o = (GameObject*) e;

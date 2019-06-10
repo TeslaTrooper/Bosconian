@@ -82,7 +82,7 @@ public:
 	}
 
 	void createStationProjectile(const ProjectileParams* const params) const {
-		GameObject* projectile = new StationProjectile(params->position, TextureAtlas::Station::NODE );
+		GameObject* projectile = new StationProjectile(params->position, IN_GAME_RASTER_SIZE / 4, TextureAtlas::Missile::BULLET );
 
 		configureProjectile(params, projectile);
 	}
@@ -91,11 +91,11 @@ public:
 		const Rendering::Rectangle* sprite;
 
 		if (params->direction.y > 0)
-			sprite = &TextureAtlas::Rocket::UP_WARDS;
+			sprite = &TextureAtlas::Missile::ROCKET_UP_WARDS;
 		else
-			sprite = &TextureAtlas::Rocket::DOWN_WARDS;
+			sprite = &TextureAtlas::Missile::ROCKET_DOWN_WARDS;
 
-		GameObject* rocket = new StationProjectile(params->position, *sprite );
+		GameObject* rocket = new StationProjectile(params->position, IN_GAME_RASTER_SIZE, *sprite );
 		configureProjectile(params, rocket);
 	}
 

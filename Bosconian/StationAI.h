@@ -58,7 +58,7 @@ class StationAI {
 		Vec2 cannonPosition = cannons.at(min.index)->getPosition() + (cannons.at(min.index)->getBbox() / 2);
 		Vec2 projectileDirection = (playerPosition - cannonPosition).norm(PROJECTILE_SPEED);
 
-		projectileParams = new ProjectileParams(cannonPosition - (IN_GAME_RASTER_SIZE / 4), projectileDirection);
+		projectileParams = new ProjectileParams(cannonPosition - (IN_GAME_RASTER_SIZE / 8), projectileDirection);
 
 		lastShootingTimeStamp = lifetime;
 	}

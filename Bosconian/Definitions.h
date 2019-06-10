@@ -251,9 +251,11 @@ namespace TextureAtlas {
 		};
 	}
 
-	namespace Rocket {
-		static const Rendering::Rectangle UP_WARDS		= { 6, 7, 1, 1 };
-		static const Rendering::Rectangle DOWN_WARDS	= { 6, 6, 1, 1 };
+	namespace Missile {
+		static const Rendering::Rectangle ROCKET_UP_WARDS		= { 6, 7, 1, 1 };
+		static const Rendering::Rectangle ROCKET_DOWN_WARDS		= { 6, 6, 1, 1 };
+		static const Rendering::Rectangle BULLET				= { 6, 2, 1, 1 };
+		//static const Rendering::Rectangle PLAYER_PROJECTILE		= { 0, 0, 1, 1 };
 	}
 
 }
