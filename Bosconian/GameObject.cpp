@@ -18,6 +18,8 @@ void GameObject::update(const float dt) {
 		return;
 
 	lifetime += dt;
+
+	checkLifetime();
 	updateTransformation();
 	checkForDestructionAnimation();
 }

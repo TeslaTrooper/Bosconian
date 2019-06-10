@@ -88,9 +88,12 @@ void Renderer::renderHUD() const {
 	prepareHUDShader({ Mat4::getTransformation(scoreLabelPosition, Vec2(100, 20)), TextureAtlas::Font::SCORE });
 	draw(data);
 
-	Vec2 scorePosition = Vec2(180, WIN_HEIGHT - 95);
-	prepareHUDShader({ Mat4::getTransformation(scorePosition, Vec2(20, 20)), TextureAtlas::Font::ZERO });
-	draw(data);
+
+	Label l = Label(to_string(game->getScore()), 0, WIN_HEIGHT - 95);
+	for (RenderUnit u : l.getRenderUnits()) {
+		prepareHUDShader(u);
+		draw(data);
+	}
 
 	Vec2 roundLabelPosition = Vec2(0, 50);
 	prepareHUDShader({ Mat4::getTransformation(roundLabelPosition, Vec2(100, 20)), TextureAtlas::Font::ROUND });

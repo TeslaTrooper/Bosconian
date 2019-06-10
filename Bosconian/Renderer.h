@@ -8,6 +8,7 @@
 
 #include "Definitions.h"
 #include "Game.h"
+#include "Label.h"
 
 #define RASTER_SIZE			128
 

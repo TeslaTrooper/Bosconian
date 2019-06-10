@@ -61,14 +61,14 @@
 namespace Direction {
 
 	const map<int, Vec2> mapping = {
-		{DIRECTION_LEFT, VECTOR_LEFT},
-		{DIRECTION_UP, VECTOR_UP},
-		{DIRECTION_RIGHT, VECTOR_RIGHT},
-		{DIRECTION_DOWN, VECTOR_DOWN},
-		{DIRECTION_LEFT_UP, VECTOR_LEFT_UP},
-		{DIRECTION_LEFT_DOWN, VECTOR_LEFT_DOWN},
-		{DIRECTION_RIGHT_UP, VECTOR_RIGHT_UP},
-		{DIRECTION_RIGHT_DOWN, VECTOR_RIGHT_DOWN}
+		{ DIRECTION_LEFT, VECTOR_LEFT },
+		{ DIRECTION_UP, VECTOR_UP },
+		{ DIRECTION_RIGHT, VECTOR_RIGHT },
+		{ DIRECTION_DOWN, VECTOR_DOWN },
+		{ DIRECTION_LEFT_UP, VECTOR_LEFT_UP },
+		{ DIRECTION_LEFT_DOWN, VECTOR_LEFT_DOWN },
+		{ DIRECTION_RIGHT_UP, VECTOR_RIGHT_UP },
+		{ DIRECTION_RIGHT_DOWN, VECTOR_RIGHT_DOWN }
 	};
 
 }
@@ -214,6 +214,19 @@ namespace TextureAtlas {
 		static const Rendering::Rectangle NINE		= { 2, 1, 1, 1 };
 		static const Rendering::Rectangle SCORE		= { 0, 2, 5, 1 };
 		static const Rendering::Rectangle ROUND		= { 0, 3, 5, 1 };
+
+		const map<char, Rendering::Rectangle> numberMap = {
+			{'0', ZERO},
+			{'1', ONE},
+			{'2', TWO},
+			{'3', THREE},
+			{'4', FOUR},
+			{'5', FIVE},
+			{'6', SIX},
+			{'7', SEVEN},
+			{'8', EIGHT},
+			{'9', NINE},
+		};
 	}
 
 	namespace Background {
@@ -236,6 +249,11 @@ namespace TextureAtlas {
 			{ 4, EXP_5 },
 			{ 5, EXP_6 },
 		};
+	}
+
+	namespace Rocket {
+		static const Rendering::Rectangle UP_WARDS		= { 6, 7, 1, 1 };
+		static const Rendering::Rectangle DOWN_WARDS	= { 6, 6, 1, 1 };
 	}
 
 }

@@ -81,9 +81,9 @@ class StationAI {
 			return;
 
 		if (playerPosition.y < coreCenter.y)
-			rocketParams = new ProjectileParams(coreCenter, Vec2(0, -1).mul(ROCKET_SPEED));
+			rocketParams = new ProjectileParams(coreCenter - (IN_GAME_RASTER_SIZE / 2), Vec2(0, -1).mul(ROCKET_SPEED));
 		else
-			rocketParams = new ProjectileParams(coreCenter, Vec2(0, 1).mul(ROCKET_SPEED));
+			rocketParams = new ProjectileParams(coreCenter - (IN_GAME_RASTER_SIZE / 2), Vec2(0, 1).mul(ROCKET_SPEED));
 
 		lastRocketShootingTimeStamp = lifetime;
 	}

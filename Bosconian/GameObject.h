@@ -35,6 +35,7 @@ public:
 	virtual void destroy();
 	virtual bool canAnimate() { return true; }
 	virtual void afterDestruction() { canBeCleanedUp = true; }
+	virtual void checkLifetime() {}
 
 	void markForCleanup() { canBeCleanedUp = true; }
 	bool readyForCleanup() { return canBeCleanedUp; }
@@ -48,6 +49,7 @@ public:
 	friend class Cannon;
 	friend class Enemy;
 	friend class Formation;
+	friend class StationProjectile;
 
 };
 

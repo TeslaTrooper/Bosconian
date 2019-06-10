@@ -60,8 +60,14 @@ public:
 			spawnObstacle();
 	}
 
-	StationAI* spawnStations() const {
-		return entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300));
+	vector<StationAI*> spawnStations() const {
+		vector<StationAI*> stations;
+
+		stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300)));
+		//stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(200, 300)));
+		//stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(100, 400)));
+
+		return stations;
 	}
 
 	void spawnStationProjectile(const ProjectileParams* const params) const {
@@ -69,7 +75,7 @@ public:
 	}
 
 	void spawnStationRocket(const ProjectileParams* const params) const {
-		entityFactory.createStationProjectile(params);
+		entityFactory.createStationRocket(params);
 	}
 
 	void spawnEnemy1(const Vec2& position, const GameObject* const player) const {

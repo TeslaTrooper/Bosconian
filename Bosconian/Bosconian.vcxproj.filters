@@ -46,6 +46,9 @@
     <Filter Include="Source Files\logic\core\entities">
       <UniqueIdentifier>{c6026cb0-170f-4c9f-b223-9c31dee5ffbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ui\hud">
+      <UniqueIdentifier>{657c22fe-44fc-4e30-b310-01dbdc05d5b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -53,9 +56,6 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\ui\view</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\logic\api</Filter>
@@ -111,13 +111,16 @@
     <ClInclude Include="Member.h">
       <Filter>Header Files\logic\core\entities</Filter>
     </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Header Files\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Char.h">
+      <Filter>Header Files\ui\hud</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
       <Filter>Source Files\ui\view</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\ui\view</Filter>

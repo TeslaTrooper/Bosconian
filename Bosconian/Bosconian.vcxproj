@@ -131,7 +131,7 @@
   <ItemGroup>
     <ClInclude Include="APIFactory.h" />
     <ClInclude Include="Cannon.h" />
-    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Char.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="Enemy.h" />
@@ -143,6 +143,7 @@
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStats.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="Member.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Renderer.h" />
@@ -153,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connector.h" />
-    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
