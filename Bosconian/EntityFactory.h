@@ -14,16 +14,17 @@
 #include "Obstacle.h"
 #include "Formation.h"
 #include "Member.h"
+#include "PlayerProjectile.h"
 
 class EntityFactory {
 
 	EntityHandler* const entityHandler;
 
-	void configureProjectile(const ProjectileParams* const params, GameObject* const object) const {
-		object->setVMax(params->direction.length());
-		object->setAcceleration(params->direction.length());
-		object->setDirection(params->direction.norm());
-		object->setMovement(params->direction);
+	void configureProjectile(const ProjectileParams& params, GameObject* const object) const {
+		object->setVMax(params.speed);
+		object->setAcceleration(params.speed);
+		object->setDirection(params.direction);
+		object->setMovement(params.direction.mul(params.speed));
 
 		entityHandler->registerEntity(object);
 	}
@@ -81,21 +82,21 @@ public:
 		return new StationAI(childObjects);
 	}
 
-	void createStationProjectile(const ProjectileParams* const params) const {
-		GameObject* projectile = new StationProjectile(params->position, IN_GAME_RASTER_SIZE / 4, TextureAtlas::Missile::BULLET );
+	void createStationProjectile(const ProjectileParams& params) const {
+		GameObject* projectile = new StationProjectile(params.position, IN_GAME_RASTER_SIZE / 4, TextureAtlas::Missile::BULLET );
 
 		configureProjectile(params, projectile);
 	}
 
-	void createStationRocket(const ProjectileParams* const params) const {
+	void createStationRocket(const ProjectileParams& params) const {
 		const Rendering::Rectangle* sprite;
 
-		if (params->direction.y > 0)
+		if (params.direction.y > 0)
 			sprite = &TextureAtlas::Missile::ROCKET_UP_WARDS;
 		else
 			sprite = &TextureAtlas::Missile::ROCKET_DOWN_WARDS;
 
-		GameObject* rocket = new StationProjectile(params->position, IN_GAME_RASTER_SIZE, *sprite );
+		GameObject* rocket = new StationProjectile(params.position, IN_GAME_RASTER_SIZE, *sprite );
 		configureProjectile(params, rocket);
 	}
 
@@ -126,6 +127,24 @@ public:
 		entityHandler->registerEntity(leader);
 
 		return new Formation(leader, formationMembers);
+	}
+
+	void createPlayerProjectile(const ProjectileParams& params) const {
+		float angle = 0;
+
+		if (params.direction == VECTOR_DOWN || params.direction == VECTOR_UP)
+			angle = 90;
+		if (params.direction == VECTOR_LEFT_DOWN || params.direction == VECTOR_RIGHT_UP)
+			angle = 45;
+		if (params.direction == VECTOR_RIGHT_DOWN || params.direction == VECTOR_LEFT_UP)
+			angle = -45;
+
+		GameObject* projectile1 = new PlayerProjectile(params.position, angle);
+		GameObject* projectile2 = new PlayerProjectile(params.position, angle);
+		ProjectileParams p = ProjectileParams(params.position, params.direction.inv(), params.speed);
+
+		configureProjectile(params, projectile1);
+		configureProjectile(p, projectile2);
 	}
 
 };

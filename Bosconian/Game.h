@@ -20,6 +20,8 @@ struct Game : public InternalLogic {
 
 	virtual int getLevel() = 0;
 
+	virtual void shoot() = 0;
+
 };
 
 #endif GAME

@@ -12,8 +12,10 @@ void Window::checkInput(float dt) {
 	bool down = UserInputController::isKeyPressed(KEY_DOWN);
 	bool up = UserInputController::isKeyPressed(KEY_UP);
 
-	if (space)
-		printf("Space pressed!\n");
+	if (space) {
+		UserInputController::release(KEY_SPACE);
+		game->shoot();
+	}
 
 	if (up)		game->setShipDirection(DIRECTION_UP);
 	if (left)	game->setShipDirection(DIRECTION_LEFT);

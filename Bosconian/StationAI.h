@@ -56,9 +56,9 @@ class StationAI {
 			return;
 
 		Vec2 cannonPosition = cannons.at(min.index)->getPosition() + (cannons.at(min.index)->getBbox() / 2);
-		Vec2 projectileDirection = (playerPosition - cannonPosition).norm(PROJECTILE_SPEED);
+		Vec2 projectileDirection = (playerPosition - cannonPosition).norm();
 
-		projectileParams = new ProjectileParams(cannonPosition - (IN_GAME_RASTER_SIZE / 8), projectileDirection);
+		projectileParams = new ProjectileParams(cannonPosition - (IN_GAME_RASTER_SIZE / 8), projectileDirection, PROJECTILE_SPEED);
 
 		lastShootingTimeStamp = lifetime;
 	}
@@ -81,9 +81,9 @@ class StationAI {
 			return;
 
 		if (playerPosition.y < coreCenter.y)
-			rocketParams = new ProjectileParams(coreCenter - (IN_GAME_RASTER_SIZE / 2), Vec2(0, -1).mul(ROCKET_SPEED));
+			rocketParams = new ProjectileParams(coreCenter - (IN_GAME_RASTER_SIZE / 2), VECTOR_DOWN, ROCKET_SPEED);
 		else
-			rocketParams = new ProjectileParams(coreCenter - (IN_GAME_RASTER_SIZE / 2), Vec2(0, 1).mul(ROCKET_SPEED));
+			rocketParams = new ProjectileParams(coreCenter - (IN_GAME_RASTER_SIZE / 2), VECTOR_UP, ROCKET_SPEED);
 
 		lastRocketShootingTimeStamp = lifetime;
 	}
@@ -96,6 +96,11 @@ public:
 
 		for (int i = 3; i < 9; i++)
 			this->cannons.push_back((Cannon*) childObjects.at(i));
+	}
+
+	~StationAI() {
+		delete projectileParams;
+		delete rocketParams;
 	}
 
 	void update(float dt, const GameObject* const player) {
@@ -141,12 +146,12 @@ public:
 		return rocketParams != nullptr;
 	}
 
-	ProjectileParams* getProjectileParams() const {
-		return projectileParams;
+	const ProjectileParams& getProjectileParams() const {
+		return *projectileParams;
 	}
 
-	ProjectileParams* getRocketParams() const {
-		return rocketParams;
+	const ProjectileParams& getRocketParams() const {
+		return *rocketParams;
 	}
 
 	bool inactive() {

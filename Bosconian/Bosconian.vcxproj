@@ -146,6 +146,7 @@
     <ClInclude Include="Label.h" />
     <ClInclude Include="Member.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="StationAI.h" />

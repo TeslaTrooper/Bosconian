@@ -55,8 +55,12 @@
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
 
-#define SHIP_SPEED	100
-#define ENEMY_SPEED SHIP_SPEED / 2
+#define SHIP_SPEED				100
+#define SHIP_BULLET_SPEED		500
+#define SHIP_SHOOTING_INTERVAL	.2f
+#define SHIP_BULLET_LIFETIME	.75f
+#define STATION_BULLET_LIFETIME 3
+#define ENEMY_SPEED				SHIP_SPEED / 2
 
 namespace Direction {
 
@@ -255,7 +259,7 @@ namespace TextureAtlas {
 		static const Rendering::Rectangle ROCKET_UP_WARDS		= { 6, 7, 1, 1 };
 		static const Rendering::Rectangle ROCKET_DOWN_WARDS		= { 6, 6, 1, 1 };
 		static const Rendering::Rectangle BULLET				= { 6, 2, 1, 1 };
-		//static const Rendering::Rectangle PLAYER_PROJECTILE		= { 0, 0, 1, 1 };
+		static const Rendering::Rectangle PLAYER_BULLET			= { 6, 5, 1, 1 };
 	}
 
 }
@@ -323,8 +327,9 @@ namespace Station {
 	struct ProjectileParams {
 		const Vec2 position;
 		const Vec2 direction;
+		const float speed;
 
-		ProjectileParams(const Vec2& position, const Vec2& direction) : position(position), direction(direction) {}
+		ProjectileParams(const Vec2& position, const Vec2& direction, float speed) : position(position), direction(direction), speed(speed) {}
 	};
 
 }

@@ -13,7 +13,7 @@ using namespace TextureAtlas::Explosion;
 
 class GameObject : public Entity {
 
-	float lifetime, maxLifetime, destructionTimeStamp;
+	float lifetime, maxLifetime, destructionTimeStamp, angle;
 	bool destroyed, canBeCleanedUp;
 	Rectangle sprite;
 
@@ -22,6 +22,7 @@ class GameObject : public Entity {
 public:
 
 	GameObject(const Vec2 position, const Vec2 scale, const Rectangle sprite);
+	GameObject(const Vec2 position, const Vec2 scale, float angle, const Rectangle sprite);
 
 	virtual void update(const float dt);
 	RenderUnit getRenderUnit() const;
@@ -50,6 +51,7 @@ public:
 	friend class Enemy;
 	friend class Formation;
 	friend class StationProjectile;
+	friend class PlayerProjectile;
 
 };
 

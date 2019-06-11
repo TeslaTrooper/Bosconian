@@ -105,6 +105,19 @@ public:
 		ship->move(direction);
 	}
 
+	void shoot() override {
+		Ship* ship = entityHandler.getShip();
+
+		if (ship == nullptr || !ship->canShoot())
+			return;
+
+		const Vec2& position = ship->getPosition() + ship->getBbox() / 2;
+		const Vec2& direction = ship->getDirection();
+
+		ProjectileParams p = ProjectileParams(position, direction, SHIP_BULLET_SPEED);
+		entititySpawner.spawnPlayerProjectile(p);
+	}
+
 	Mat4 getCameraTransformation() const override {
 		return camera->getTransformation();
 	}

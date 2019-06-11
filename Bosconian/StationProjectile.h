@@ -3,8 +3,6 @@
 
 #include "GameObject.h"
 
-#define MAX_LIFETIME 3
-
 using namespace TextureAtlas::Station;
 
 class StationProjectile : public GameObject {
@@ -24,7 +22,7 @@ public:
 	}
 
 	void checkLifetime() override {
-		if (lifetime > MAX_LIFETIME)
+		if (lifetime > STATION_BULLET_LIFETIME)
 			canBeCleanedUp = true;
 	}
 

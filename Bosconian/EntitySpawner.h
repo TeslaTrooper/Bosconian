@@ -70,11 +70,11 @@ public:
 		return stations;
 	}
 
-	void spawnStationProjectile(const ProjectileParams* const params) const {
+	void spawnStationProjectile(const ProjectileParams& params) const {
 		entityFactory.createStationProjectile(params);
 	}
 
-	void spawnStationRocket(const ProjectileParams* const params) const {
+	void spawnStationRocket(const ProjectileParams& params) const {
 		entityFactory.createStationRocket(params);
 	}
 
@@ -92,6 +92,10 @@ public:
 
 	Formation* spawnFormation(const Vec2& position, const GameObject* const player) const {
 		return entityFactory.createFormation(position, player);
+	}
+
+	void spawnPlayerProjectile(const ProjectileParams& params) const {
+		entityFactory.createPlayerProjectile(params);
 	}
 
 };
