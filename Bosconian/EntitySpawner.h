@@ -5,11 +5,15 @@
 
 #define OBSTACLE_COUNT 20
 #define DEFAULT_SHIP_START_POSITION Vec2(WORLD_WIDTH / 2, WORLD_HEIGHT / 2)
+#define ENEMY_SPAWNING_INTERVAL 0.1f
+#define ROTATION_ZONE 90
 
 class EntitySpawner {
 
 	EntityFactory entityFactory;
 	EntityHandler* const entityHandler;
+
+	float lifetime, lastEnemySpawningTimeStamp;
 
 	bool isValidSpawnPosition(const Rectangle& rect) const {
 		vector<GameObject*> objects = entityHandler->getAsList();
@@ -35,7 +39,7 @@ class EntitySpawner {
 			rx = CustomMath::random(0, WORLD_WIDTH);
 			ry = CustomMath::random(0, WORLD_HEIGHT);
 
-			Rectangle obstacle = { (float) rx, (float) ry, 50.f, 50.f };
+			Rectangle obstacle = { (float) rx, (float) ry, IN_GAME_RASTER_SIZE.x, IN_GAME_RASTER_SIZE.y };
 
 			validSpawnPosition = isValidSpawnPosition(obstacle);
 		}
@@ -47,9 +51,51 @@ class EntitySpawner {
 			entityFactory.createMine(Vec2(rx, ry));
 	}
 
+	Vec2 getSpawingPoint(const Vec2& playerPosition, const Vec2& playerDirection) const {
+		float halfDiagonal = (float) sqrt(pow(MAIN_FRAME_BUFFER_WIDTH, 2) + pow(WIN_HEIGHT, 2)) / 2;
+
+		Mat4 translation = Mat4::translate(playerPosition);
+		Mat4 rotation = Mat4::rotateZ((float)CustomMath::random(-ROTATION_ZONE, ROTATION_ZONE));
+		
+		Vec2 point = playerDirection.norm((float) CustomMath::random((int) halfDiagonal, (int) (halfDiagonal * 1.5f)));
+
+		return translation.mul(rotation).transform(point);
+	}
+
+	Formation* doPeriodicEnemySpawning() {
+		const GameObject* const ship = entityHandler->getShip();
+		const Vec2& shipDirection = ship->getDirection();
+		const Vec2& shipPosition = ship->getPosition();
+
+		const Vec2& spawingPoint = getSpawingPoint(shipPosition, shipDirection);
+
+		lastEnemySpawningTimeStamp = lifetime;
+
+		int enemyType = CustomMath::random(0, 32);
+		if (enemyType >= 0 && enemyType < 10)
+			spawnEnemy1(spawingPoint, ship);
+		if (enemyType >= 10 && enemyType < 20)
+			spawnEnemy2(spawingPoint, ship);
+		if (enemyType >= 20 && enemyType < 30)
+			spawnSpy(spawingPoint, ship);
+		if (enemyType >= 30)
+			return spawnFormation(spawingPoint, entityHandler->getShip());
+
+		return nullptr;
+	}
+
 public:
 
-	EntitySpawner(EntityHandler* const entityHandler) : entityHandler(entityHandler), entityFactory(entityHandler) {}
+	EntitySpawner(EntityHandler* const entityHandler) : entityHandler(entityHandler), entityFactory(entityHandler), lifetime(0), lastEnemySpawningTimeStamp(0) {}
+
+	Formation* update(float dt) {
+		lifetime += dt;
+
+		if ((lifetime - lastEnemySpawningTimeStamp) > ENEMY_SPAWNING_INTERVAL && entityHandler->getShip() != nullptr)
+			return doPeriodicEnemySpawning();
+
+		return nullptr;
+	}
 
 	Ship* spawnShip() const {
 		return entityFactory.createShip(DEFAULT_SHIP_START_POSITION);

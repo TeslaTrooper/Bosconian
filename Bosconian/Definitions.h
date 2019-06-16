@@ -10,6 +10,9 @@
 #define WIN_WIDTH	900
 #define WIN_HEIGHT	600
 
+#define HUD_FRAME_BUFFER_WIDTH	200
+#define MAIN_FRAME_BUFFER_WIDTH	WIN_WIDTH - HUD_FRAME_BUFFER_WIDTH
+
 #define ALPHA_COLOR new Color(141, 0, 200)
 
 // In-Game specific definitions
@@ -46,12 +49,15 @@
 #define CLASS_ID_GAME_OBJECT		0
 #define CLASS_ID_SHIP				1
 #define CLASS_ID_SHIP_PROJECTILE	2
-#define CLASS_ID_ENEMY				3
+#define CLASS_ID_ENEMY_TYPE_1		3
 #define CLASS_ID_CANNON				4
 #define CLASS_ID_STATION_PROJECTILE 5
 #define CLASS_ID_STATION_CONNECTOR	6
 #define CLASS_ID_STATION_CORE		7
-#define CLASS_ID_OBSTACLE			8
+#define CLASS_ID_ASTEROID			8
+#define CLASS_ID_MINE				9
+#define CLASS_ID_ENEMY_TYPE_2		10
+#define CLASS_ID_ENEMY_TYPE_SPY		11
 
 #define IN_GAME_RASTER_SIZE Vec2(50, 50)
 
@@ -60,7 +66,7 @@
 #define SHIP_SHOOTING_INTERVAL	.2f
 #define SHIP_BULLET_LIFETIME	.75f
 #define STATION_BULLET_LIFETIME 3
-#define ENEMY_SPEED				SHIP_SPEED / 2
+#define ENEMY_SPEED				SHIP_SPEED * 2
 
 namespace Direction {
 
@@ -103,7 +109,12 @@ namespace Rendering {
 				r1h + r1y > r2y;
 		}
 
-		bool operator==(const Rectangle& rect) {
+		bool contains(const Vec2& point) const {
+			return (point.x >= position.x && point.x <= position.x + size.x) &&
+				(point.y >= position.y && point.y <= position.y + size.y);
+		}
+
+		bool operator==(const Rectangle& rect) const {
 			return position == rect.position && size == rect.size;
 		}
 	};

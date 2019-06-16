@@ -25,6 +25,7 @@ class GameLogic : public Game, public CollisionCallback {
 	vector<Formation*> formations;
 
 	void resolveCollision(Entity* e1, Entity* e2, const Vec2& location) const override;
+	void checkScoring(const GameObject* const o1, const GameObject* const o2) const;
 
 	void updateStations(float dt) {
 		for (int i = 0; i < stations.size(); i++) {
@@ -37,7 +38,7 @@ class GameLogic : public Game, public CollisionCallback {
 				entititySpawner.spawnStationRocket(stations.at(i)->getRocketParams());
 
 			if (stations.at(i)->inactive())
-				stats->gain(1500);
+				stats->gain(SCORE_GAIN_STATION);
 		}
 	}
 
@@ -76,9 +77,6 @@ public:
 			this->stations.push_back(station);
 
 		entititySpawner.spawnObstacles();
-		entititySpawner.spawnEnemy2(DEFAULT_SHIP_START_POSITION - Vec2(200, 100), entityHandler.getShip());
-
-		formations.push_back(entititySpawner.spawnFormation(DEFAULT_SHIP_START_POSITION - Vec2(500, 0), entityHandler.getShip()));
 	}
 
 	~GameLogic() {};
@@ -92,6 +90,10 @@ public:
 
 		entityHandler.cleanupDeadEntities();
 		removeInactiveStations();
+
+		Formation* f = entititySpawner.update(dt);
+		if (f != nullptr)
+			formations.push_back(f);
 	}
 
 	vector<RenderUnit> getRenderUnits() const override;

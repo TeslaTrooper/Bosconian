@@ -121,11 +121,18 @@ public:
 
 		// Can collide with ship / projetile / obstacles
 		return id != CLASS_ID_CANNON && id != CLASS_ID_STATION_CONNECTOR &&
-			id != CLASS_ID_STATION_CORE && id != CLASS_ID_STATION_PROJECTILE && id != CLASS_ID_ENEMY;
+			id != CLASS_ID_STATION_CORE && id != CLASS_ID_STATION_PROJECTILE &&
+			id != CLASS_ID_ENEMY_TYPE_1 && id != CLASS_ID_ENEMY_TYPE_2 && id != CLASS_ID_ENEMY_TYPE_SPY;
 	}
 
 	int getClassId() const override {
-		return CLASS_ID_ENEMY;
+		if (enemyType == ENEMY_TYPE_1)
+			return CLASS_ID_ENEMY_TYPE_1;
+
+		if (enemyType == ENEMY_TYPE_2)
+			return CLASS_ID_ENEMY_TYPE_2;
+
+		return CLASS_ID_ENEMY_TYPE_SPY;
 	}
 
 };

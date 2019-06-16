@@ -33,8 +33,11 @@ public:
 		objects[CLASS_ID_SHIP] = new vector<GameObject*>();
 		objects[CLASS_ID_CANNON] = new vector<GameObject*>();
 		objects[CLASS_ID_STATION_PROJECTILE] = new vector<GameObject*>();
-		objects[CLASS_ID_ENEMY] = new vector<GameObject*>();
-		objects[CLASS_ID_OBSTACLE] = new vector<GameObject*>();
+		objects[CLASS_ID_ENEMY_TYPE_1] = new vector<GameObject*>();
+		objects[CLASS_ID_ENEMY_TYPE_2] = new vector<GameObject*>();
+		objects[CLASS_ID_ENEMY_TYPE_SPY] = new vector<GameObject*>();
+		objects[CLASS_ID_ASTEROID] = new vector<GameObject*>();
+		objects[CLASS_ID_MINE] = new vector<GameObject*>();
 		objects[CLASS_ID_SHIP_PROJECTILE] = new vector<GameObject*>();
 		objects[CLASS_ID_STATION_CORE] = new vector<GameObject*>();
 		objects[CLASS_ID_STATION_CONNECTOR] = new vector<GameObject*>();

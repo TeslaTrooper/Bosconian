@@ -7,9 +7,11 @@
 
 class Obstacle : public GameObject {
 
+	const int classId;
 
 public:
-	Obstacle(const Vec2& position, const Rendering::Rectangle sprite) : GameObject(position, OBSTACLE_SIZE, sprite) {}
+	Obstacle(const Vec2& position, const Rendering::Rectangle sprite) : GameObject(position, OBSTACLE_SIZE, sprite),
+		classId(sprite == TextureAtlas::Obstacle::ASTEROID ? CLASS_ID_ASTEROID : CLASS_ID_MINE) {}
 
 	bool canCollideWith(const Entity* const e) const override {
 		int id = ((GameObject*)e)->getClassId();
@@ -20,7 +22,7 @@ public:
 	}
 
 	int getClassId() const override {
-		return CLASS_ID_OBSTACLE;
+		return classId;
 	}
 };
 

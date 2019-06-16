@@ -39,8 +39,8 @@ public:
 	virtual void checkLifetime() {}
 
 	void markForCleanup() { canBeCleanedUp = true; }
-	bool readyForCleanup() { return canBeCleanedUp; }
-	bool isDestroyed() { return destroyed; }
+	bool readyForCleanup() const { return canBeCleanedUp; }
+	bool isDestroyed() const { return destroyed; }
 
 	virtual int getClassId() const {
 		return CLASS_ID_GAME_OBJECT;
@@ -52,6 +52,7 @@ public:
 	friend class Formation;
 	friend class StationProjectile;
 	friend class PlayerProjectile;
+	friend class Obstacle;
 
 };
 

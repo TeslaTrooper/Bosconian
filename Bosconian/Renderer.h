@@ -12,9 +12,6 @@
 
 #define RASTER_SIZE			128
 
-#define HUD_FRAME_BUFFER_WIDTH	200
-#define MAIN_FRAME_BUFFER_WIDTH	WIN_WIDTH - HUD_FRAME_BUFFER_WIDTH
-
 #define PROJECTION				"projection"
 #define TRANSFORM				"transform"
 #define TEXTURE_TRANSFORM		"textureTranslation"
