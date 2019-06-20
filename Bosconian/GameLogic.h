@@ -21,6 +21,7 @@ class GameLogic : public Game, public CollisionCallback {
 	EntitySpawner entititySpawner;
 	Camera* camera;
 	GameStats* stats;
+
 	vector<StationAI*> stations;
 	vector<Formation*> formations;
 
@@ -65,6 +66,15 @@ class GameLogic : public Game, public CollisionCallback {
 			[](StationAI* s) { return s->inactive(); }), stations.end());
 	}
 
+	void checkForMissingPlayer(float dt) {
+		Ship* ship = entititySpawner.checkForMissingPlayer(dt);
+
+		if (ship == nullptr)
+			return;
+
+		camera->updateTarget(ship);
+	}
+
 public:
 
 	GameLogic() : physics(this), entititySpawner(&entityHandler), gameWorld(GameWorld(WORLD_WIDTH, WORLD_HEIGHT, WORLD_TYPE_LOOP)) {
@@ -72,6 +82,7 @@ public:
 
 		Ship* ship = entititySpawner.spawnShip();
 		camera = new Camera(ship, WIN_WIDTH - 200, WIN_HEIGHT);
+
 		const vector<StationAI*>& stations = entititySpawner.spawnStations();
 		for (StationAI* const station : stations)
 			this->stations.push_back(station);
@@ -90,6 +101,8 @@ public:
 
 		entityHandler.cleanupDeadEntities();
 		removeInactiveStations();
+		checkForMissingPlayer(dt);
+
 
 		Formation* f = entititySpawner.update(dt);
 		if (f != nullptr)
@@ -101,7 +114,7 @@ public:
 	void setShipDirection(int direction) const override {
 		Ship* ship = entityHandler.getShip();
 
-		if (ship == nullptr)
+		if (ship == nullptr || ship->isDestroyed())
 			return;
 
 		ship->move(direction);

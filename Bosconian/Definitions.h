@@ -67,6 +67,7 @@
 #define SHIP_BULLET_LIFETIME	.75f
 #define STATION_BULLET_LIFETIME 3
 #define ENEMY_SPEED				SHIP_SPEED * 2
+#define ENEMY_DIRECTION_CHANGE_INTERVAL .5f
 
 namespace Direction {
 

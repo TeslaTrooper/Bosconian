@@ -28,7 +28,7 @@ public:
 	}
 
 	bool canShoot() {
-		if ((lifetime - lastShootingTimeStamp) > SHIP_SHOOTING_INTERVAL) {
+		if ((lifetime - lastShootingTimeStamp) > SHIP_SHOOTING_INTERVAL && !isDestroyed()) {
 			lastShootingTimeStamp = lifetime;
 
 			return true;

@@ -38,8 +38,8 @@ public:
 	Ship* createShip(const Vec2& position) const {
 		Ship* ship = new Ship(position);
 
-		ship->setVMax(100);
-		ship->setAcceleration(100);
+		ship->setVMax(SHIP_SPEED);
+		ship->setAcceleration(SHIP_SPEED);
 		ship->setDirection(Vec2(0, 1));
 
 		return (Ship*) entityHandler->registerEntity(ship);
@@ -101,15 +101,30 @@ public:
 	}
 
 	void createEnemy1(const Vec2& position, const GameObject* const player) const {
-		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_1, player));
+		GameObject* enemy = new Enemy(position, ENEMY_TYPE_1, player);
+
+		enemy->setVMax(ENEMY_SPEED);
+		enemy->setAcceleration(ENEMY_SPEED);
+
+		entityHandler->registerEntity(enemy);
 	}
 
 	void createEnemy2(const Vec2& position, const GameObject* const player) const {
-		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_2, player));
+		GameObject* enemy = new Enemy(position, ENEMY_TYPE_2, player);
+
+		enemy->setVMax(ENEMY_SPEED);
+		enemy->setAcceleration(ENEMY_SPEED);
+
+		entityHandler->registerEntity(enemy);
 	}
 
 	void createSpy(const Vec2& position, const GameObject* const player) const {
-		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_SPY, player));
+		GameObject* enemy = new Enemy(position, ENEMY_TYPE_SPY, player);
+
+		enemy->setVMax(ENEMY_SPEED);
+		enemy->setAcceleration(ENEMY_SPEED);
+
+		entityHandler->registerEntity(enemy);
 	}
 
 	Formation* createFormation(const Vec2& position, const GameObject* const player) const {

@@ -7,6 +7,7 @@ class Enemy : public GameObject {
 
 	const int enemyType;
 	const GameObject* const player;
+	float lastDirectionChangeTimeStamp;
 
 	const map<int, vector<Vec2>> quadrantDirectionMap = {
 		{ QUADRANT_RIGHT_TOP,		{ VECTOR_UP, VECTOR_RIGHT_UP, VECTOR_RIGHT } },
@@ -110,8 +111,13 @@ public:
 	void update(float dt) override {
 		GameObject::update(dt);
 
-		if (destroyed)
+		if (destroyed || player == nullptr || player->isDestroyed())
 			return;
+
+		if ((lifetime - lastDirectionChangeTimeStamp) < ENEMY_DIRECTION_CHANGE_INTERVAL)
+			return;
+
+		lastDirectionChangeTimeStamp = lifetime;
 
 		calcDirectionToPlayer();
 	}

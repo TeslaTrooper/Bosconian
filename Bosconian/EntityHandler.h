@@ -26,6 +26,15 @@ class EntityHandler {
 		removeIfPresent(list, entity);
 	}
 
+	void deRegisterEntityByClassType(int type) const {
+		if (!hasElements(type))
+			return;
+
+		vector<GameObject*>* list = objects.at(type);
+		for (int i = 0; i < list->size(); i++)
+			deRegisterEntity(list->at(i));
+	}
+
 public:
 
 	EntityHandler() {
@@ -55,6 +64,12 @@ public:
 			for (int i = 0; i < pair.second->size(); i++)
 				if (pair.second->at(i)->readyForCleanup())
 					deRegisterEntity(pair.second->at(i));
+	}
+
+	void cleanEnemies() const {
+		deRegisterEntityByClassType(CLASS_ID_ENEMY_TYPE_1);
+		deRegisterEntityByClassType(CLASS_ID_ENEMY_TYPE_2);
+		deRegisterEntityByClassType(CLASS_ID_ENEMY_TYPE_SPY);
 	}
 
 	vector<Entity*> toBaseEntites() const {

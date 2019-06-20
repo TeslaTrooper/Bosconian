@@ -61,10 +61,11 @@ void GameLogic::resolveCollision(Entity * e1, Entity * e2, const Vec2& location)
 	checkScoring(o1, o2);
 
 	// Destroy both objects
-	if (o1->getClassId() != CLASS_ID_SHIP)
-		o1->destroy();
-	if (o2->getClassId() != CLASS_ID_SHIP)
-		o2->destroy();
+	o1->destroy();
+	o2->destroy();
+
+	if (o1->getClassId() == CLASS_ID_SHIP || o2->getClassId() == CLASS_ID_SHIP)
+		stats->decreaseRemainingLifes();
 }
 
 vector<RenderUnit> GameLogic::getRenderUnits() const {

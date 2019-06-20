@@ -5,15 +5,17 @@
 
 #define OBSTACLE_COUNT 20
 #define DEFAULT_SHIP_START_POSITION Vec2(WORLD_WIDTH / 2, WORLD_HEIGHT / 2)
-#define ENEMY_SPAWNING_INTERVAL 0.1f
+#define ENEMY_SPAWNING_INTERVAL 2
 #define ROTATION_ZONE 90
+#define PLAYER_CREATION_DELAY 2
 
 class EntitySpawner {
 
 	EntityFactory entityFactory;
 	EntityHandler* const entityHandler;
 
-	float lifetime, lastEnemySpawningTimeStamp;
+	float lifetime, lastEnemySpawningTimeStamp, shipCreationCtr;
+	bool playerIsMissing;
 
 	bool isValidSpawnPosition(const Rectangle& rect) const {
 		vector<GameObject*> objects = entityHandler->getAsList();
@@ -84,14 +86,21 @@ class EntitySpawner {
 		return nullptr;
 	}
 
+	bool isShipAlive() {
+		Ship* s = entityHandler->getShip();
+
+		return s != nullptr && !s->isDestroyed();
+	}
+
 public:
 
-	EntitySpawner(EntityHandler* const entityHandler) : entityHandler(entityHandler), entityFactory(entityHandler), lifetime(0), lastEnemySpawningTimeStamp(0) {}
+	EntitySpawner(EntityHandler* const entityHandler) : entityHandler(entityHandler), entityFactory(entityHandler), 
+		lifetime(0), lastEnemySpawningTimeStamp(0), playerIsMissing(false), shipCreationCtr(PLAYER_CREATION_DELAY) {}
 
 	Formation* update(float dt) {
 		lifetime += dt;
 
-		if ((lifetime - lastEnemySpawningTimeStamp) > ENEMY_SPAWNING_INTERVAL && entityHandler->getShip() != nullptr)
+		if ((lifetime - lastEnemySpawningTimeStamp) > ENEMY_SPAWNING_INTERVAL && isShipAlive())
 			return doPeriodicEnemySpawning();
 
 		return nullptr;
@@ -99,6 +108,24 @@ public:
 
 	Ship* spawnShip() const {
 		return entityFactory.createShip(DEFAULT_SHIP_START_POSITION);
+	}
+
+	Ship* checkForMissingPlayer(float dt) {
+		if (entityHandler->getShip() == nullptr)
+			playerIsMissing = true;
+
+		if (playerIsMissing)
+			shipCreationCtr -= dt;
+
+		if (shipCreationCtr <= 0) {
+			playerIsMissing = false;
+			shipCreationCtr = PLAYER_CREATION_DELAY;
+			entityHandler->cleanEnemies();
+
+			return spawnShip();
+		}
+
+		return nullptr;
 	}
 
 	void spawnObstacles() const {

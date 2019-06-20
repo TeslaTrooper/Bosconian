@@ -27,6 +27,10 @@ public:
 		// when leader gets destroyed (low prio)
 	}
 
+	int getClassId() const override {
+		return CLASS_ID_ENEMY_TYPE_1;
+	}
+
 };
 
 #endif MEMBER
