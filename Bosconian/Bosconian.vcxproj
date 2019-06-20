@@ -149,6 +149,7 @@
     <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="StationAI.h" />
     <ClInclude Include="StationProjectile.h" />
     <ClInclude Include="Window.h" />

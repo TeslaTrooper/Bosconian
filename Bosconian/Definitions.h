@@ -346,4 +346,16 @@ namespace Station {
 
 }
 
+namespace SoundFiles {
+
+	static const char* const blastOff		= "sounds/blastOff.wav";
+	static const char* const alarmAlarm		= "sounds/alarm.wav";
+	static const char* const conditionRed	= "sounds/conditionRed.wav";
+	static const char* const spyShipSighted = "sounds/spyShipSighted.wav";
+	static const char* const shipShoot		= "sounds/shipShoot.wav";
+	static const char* const bigExplosion	= "sounds/bigExplosion.wav";
+	static const char* const smallExplosion = "sounds/smallExplosion.wav";
+
+}
+
 #endif DEFINITIONS

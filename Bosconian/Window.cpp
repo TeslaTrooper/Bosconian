@@ -14,7 +14,7 @@ void Window::checkInput(float dt) {
 
 	if (space) {
 		UserInputController::release(KEY_SPACE);
-		game->shoot();
+ 		game->shoot();
 	}
 
 	if (up)		game->setShipDirection(DIRECTION_UP);
