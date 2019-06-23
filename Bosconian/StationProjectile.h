@@ -14,7 +14,7 @@ public:
 	bool canCollideWith(const Entity* const e) const override {
 		GameObject* o = (GameObject*) e;
 
-		return o->getClassId() == CLASS_ID_SHIP;
+		return o->getClassId() == CLASS_ID_SHIP || o->getClassId() == CLASS_ID_ASTEROID || o->getClassId() == CLASS_ID_MINE;
 	}
 
 	int getClassId() const override {

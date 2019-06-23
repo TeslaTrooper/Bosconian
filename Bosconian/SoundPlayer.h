@@ -21,7 +21,7 @@ public:
 	SoundPlayer() {
 		soundDriver.load(SOUND_BLAST_OFF, SoundFiles::blastOff);
 		soundDriver.load(SOUND_ALARAM_ALARAM, SoundFiles::alarmAlarm);
-		soundDriver.load(SOUND_CONDITION_RED, SoundFiles::conditionRed);
+		//soundDriver.load(SOUND_CONDITION_RED, SoundFiles::conditionRed);
 		soundDriver.load(SOUND_SPY_SHIP_SIGHTED, SoundFiles::spyShipSighted);
 		soundDriver.load(SOUND_SHIP_SHOOT, SoundFiles::shipShoot);
 		soundDriver.load(SOUND_BIG_EXPLOSION, SoundFiles::bigExplosion);
@@ -30,7 +30,7 @@ public:
 
 	void update(float dt) {};
 
-	void playBlastOff() const { soundDriver.play(SOUND_BLAST_OFF, PLAY_MODE_ONCE, false); };
+	void playBlastOff() const { soundDriver.playBlocking(SOUND_BLAST_OFF); };
 	void playAlarm() const { soundDriver.play(SOUND_ALARAM_ALARAM, PLAY_MODE_ONCE, false); };
 	void playConditionRed() const { soundDriver.play(SOUND_CONDITION_RED, PLAY_MODE_ONCE, false); };
 	void playSpyShipSighted() const { soundDriver.play(SOUND_SPY_SHIP_SIGHTED, PLAY_MODE_ONCE, false); };

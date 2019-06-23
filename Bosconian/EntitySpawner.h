@@ -2,6 +2,7 @@
 #define ENTITY_SPAWNER
 
 #include "EntityFactory.h"
+#include "SoundPlayer.h"
 
 #define OBSTACLE_COUNT 20
 #define DEFAULT_SHIP_START_POSITION Vec2(WORLD_WIDTH / 2, WORLD_HEIGHT / 2)
@@ -13,6 +14,7 @@ class EntitySpawner {
 
 	EntityFactory entityFactory;
 	EntityHandler* const entityHandler;
+	SoundPlayer* const soundPlayer;
 
 	float lifetime, lastEnemySpawningTimeStamp, shipCreationCtr;
 	bool playerIsMissing;
@@ -78,7 +80,7 @@ class EntitySpawner {
 			spawnEnemy1(spawingPoint, ship);
 		if (enemyType >= 10 && enemyType < 20)
 			spawnEnemy2(spawingPoint, ship);
-		if (enemyType >= 20 && enemyType < 30)
+		if (enemyType >= 20 && enemyType < 22)
 			spawnSpy(spawingPoint, ship);
 		if (enemyType >= 30)
 			return spawnFormation(spawingPoint, entityHandler->getShip());
@@ -94,7 +96,7 @@ class EntitySpawner {
 
 public:
 
-	EntitySpawner(EntityHandler* const entityHandler) : entityHandler(entityHandler), entityFactory(entityHandler), 
+	EntitySpawner(EntityHandler* const entityHandler, SoundPlayer* const soundPlayer) : entityHandler(entityHandler), soundPlayer(soundPlayer), entityFactory(entityHandler), 
 		lifetime(0), lastEnemySpawningTimeStamp(0), playerIsMissing(false), shipCreationCtr(PLAYER_CREATION_DELAY) {}
 
 	Formation* update(float dt) {
@@ -137,8 +139,8 @@ public:
 		vector<StationAI*> stations;
 
 		stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(50, 300)));
-		//stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(200, 300)));
-		//stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(100, 400)));
+		stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION + Vec2(200, 300)));
+		stations.push_back(entityFactory.createStation(DEFAULT_SHIP_START_POSITION - Vec2(300, -400)));
 
 		return stations;
 	}
@@ -161,6 +163,7 @@ public:
 
 	void spawnSpy(const Vec2& position, const GameObject* const player)const {
 		entityFactory.createSpy(position, player);
+		soundPlayer->playSpyShipSighted();
 	}
 
 	Formation* spawnFormation(const Vec2& position, const GameObject* const player) const {

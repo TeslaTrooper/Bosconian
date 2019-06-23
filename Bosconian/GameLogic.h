@@ -21,9 +21,12 @@ class GameLogic : public Game, public CollisionCallback {
 	EntitySpawner entititySpawner;
 	Camera* camera;
 	GameStats* stats;
+	SoundPlayer soundPlayer;
 
 	vector<StationAI*> stations;
 	vector<Formation*> formations;
+
+	bool shipRespawn = false;
 
 	void resolveCollision(Entity* e1, Entity* e2, const Vec2& location) const override;
 	void checkScoring(const GameObject* const o1, const GameObject* const o2) const;
@@ -73,11 +76,12 @@ class GameLogic : public Game, public CollisionCallback {
 			return;
 
 		camera->updateTarget(ship);
+		shipRespawn = true;
 	}
 
 public:
 
-	GameLogic() : physics(this), entititySpawner(&entityHandler), gameWorld(GameWorld(WORLD_WIDTH, WORLD_HEIGHT, WORLD_TYPE_LOOP)) {
+	GameLogic() : physics(this), entititySpawner(&entityHandler, &soundPlayer), gameWorld(GameWorld(WORLD_WIDTH, WORLD_HEIGHT, WORLD_TYPE_LOOP)) {
 		stats = new GameStats();
 
 		Ship* ship = entititySpawner.spawnShip();
@@ -92,7 +96,12 @@ public:
 
 	~GameLogic() {};
 
-	void update(const float dt) override {
+	void update(float dt) override {
+		if (shipRespawn) {
+			shipRespawn = false;
+			soundPlayer.playBlastOff();
+		}
+
 		vector<Entity*> entities = entityHandler.toBaseEntites();
 		physics.update(entities, dt);
 
@@ -101,8 +110,8 @@ public:
 
 		entityHandler.cleanupDeadEntities();
 		removeInactiveStations();
-		checkForMissingPlayer(dt);
 
+		checkForMissingPlayer(dt);
 
 		Formation* f = entititySpawner.update(dt);
 		if (f != nullptr)
@@ -131,6 +140,8 @@ public:
 
 		ProjectileParams p = ProjectileParams(position, direction, SHIP_BULLET_SPEED);
 		entititySpawner.spawnPlayerProjectile(p);
+
+		soundPlayer.playShipShoot();
 	}
 
 	Mat4 getCameraTransformation() const override {

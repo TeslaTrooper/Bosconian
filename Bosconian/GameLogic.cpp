@@ -66,6 +66,11 @@ void GameLogic::resolveCollision(Entity * e1, Entity * e2, const Vec2& location)
 
 	if (o1->getClassId() == CLASS_ID_SHIP || o2->getClassId() == CLASS_ID_SHIP)
 		stats->decreaseRemainingLifes();
+
+	if (o1->getClassId() == CLASS_ID_STATION_CORE || o2->getClassId() == CLASS_ID_STATION_CORE)
+		soundPlayer.playBigExplosion();
+	else
+		soundPlayer.playSmallExplosion();
 }
 
 vector<RenderUnit> GameLogic::getRenderUnits() const {

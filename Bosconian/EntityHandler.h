@@ -99,4 +99,8 @@ public:
 		return nullptr;
 	}
 
+	bool spyExists() const {
+		return hasElements(CLASS_ID_ENEMY_TYPE_SPY);
+	}
+
 };

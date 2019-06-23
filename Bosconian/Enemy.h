@@ -106,7 +106,10 @@ class Enemy : public GameObject {
 public:
 
 	Enemy(const Vec2& position, int enemyType, const GameObject* const player) :
-		GameObject(position, IN_GAME_RASTER_SIZE, TextureAtlas::Enemy1::SPRITE_UP), player(player), enemyType(enemyType) {}
+		GameObject(position, IN_GAME_RASTER_SIZE, TextureAtlas::Enemy1::SPRITE_UP), player(player), enemyType(enemyType) {
+		setVMax(ENEMY_SPEED);
+		setAcceleration(ENEMY_SPEED);
+	}
 
 	void update(float dt) override {
 		GameObject::update(dt);

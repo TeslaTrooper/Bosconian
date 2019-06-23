@@ -101,30 +101,15 @@ public:
 	}
 
 	void createEnemy1(const Vec2& position, const GameObject* const player) const {
-		GameObject* enemy = new Enemy(position, ENEMY_TYPE_1, player);
-
-		enemy->setVMax(ENEMY_SPEED);
-		enemy->setAcceleration(ENEMY_SPEED);
-
-		entityHandler->registerEntity(enemy);
+		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_1, player));
 	}
 
 	void createEnemy2(const Vec2& position, const GameObject* const player) const {
-		GameObject* enemy = new Enemy(position, ENEMY_TYPE_2, player);
-
-		enemy->setVMax(ENEMY_SPEED);
-		enemy->setAcceleration(ENEMY_SPEED);
-
-		entityHandler->registerEntity(enemy);
+		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_2, player));
 	}
 
 	void createSpy(const Vec2& position, const GameObject* const player) const {
-		GameObject* enemy = new Enemy(position, ENEMY_TYPE_SPY, player);
-
-		enemy->setVMax(ENEMY_SPEED);
-		enemy->setAcceleration(ENEMY_SPEED);
-
-		entityHandler->registerEntity(enemy);
+		entityHandler->registerEntity(new Enemy(position, ENEMY_TYPE_SPY, player));
 	}
 
 	Formation* createFormation(const Vec2& position, const GameObject* const player) const {
