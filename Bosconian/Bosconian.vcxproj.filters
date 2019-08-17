@@ -51,9 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
-      <Filter>Header Files\ui\view</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\ui\view</Filter>
     </ClInclude>
@@ -122,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="SoundPlayer.h">
       <Filter>Header Files\logic\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files\ui\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

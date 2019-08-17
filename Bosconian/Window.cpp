@@ -1,19 +1,19 @@
-#include "Window.h"
+#include "Controller.h"
 
-Window::Window(BaseOpenGLRenderer* const renderer, Game* const game) :
-	BaseOpenGLWindow(game, renderer, WIN_POS_X, WIN_POS_Y, WIN_WIDTH, WIN_HEIGHT, "Bosconian | OpenGL"), game(game) {
+Controller::Controller(BaseRenderer* const renderer, Game* const game) :
+	BaseController(game, renderer, WIN_POS_X, WIN_POS_Y, WIN_WIDTH, WIN_HEIGHT, "Bosconian | OpenGL"), game(game) {
 	registerKeyListener();
 }
 
-void Window::checkInput(float dt) {
-	bool space = UserInputController::isKeyPressed(KEY_SPACE);
-	bool left = UserInputController::isKeyPressed(KEY_LEFT);
-	bool right = UserInputController::isKeyPressed(KEY_RIGHT);
-	bool down = UserInputController::isKeyPressed(KEY_DOWN);
-	bool up = UserInputController::isKeyPressed(KEY_UP);
+void Controller::checkInput(float dt) {
+	bool space = KeyCallbackHandler::isKeyPressed(KEY_SPACE);
+	bool left = KeyCallbackHandler::isKeyPressed(KEY_LEFT);
+	bool right = KeyCallbackHandler::isKeyPressed(KEY_RIGHT);
+	bool down = KeyCallbackHandler::isKeyPressed(KEY_DOWN);
+	bool up = KeyCallbackHandler::isKeyPressed(KEY_UP);
 
 	if (space) {
-		UserInputController::release(KEY_SPACE);
+		KeyCallbackHandler::release(KEY_SPACE);
  		game->shoot();
 	}
 

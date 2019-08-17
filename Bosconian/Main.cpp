@@ -1,15 +1,15 @@
-#include "Window.h"
+#include "Controller.h"
 #include "Renderer.h"
 #include "APIFactory.h"
 
 int main(void) {
 	Game* game = APIFactory::getInstance();
-	BaseOpenGLRenderer* renderer = new Renderer(game);
+	BaseRenderer* renderer = new Renderer(game);
 
-	BaseOpenGLWindow* window = new Window(renderer, game);
-	window->run();
+	BaseController* controller = new Controller(renderer, game);
+	controller->run();
 
-	delete window;
+	delete controller;
 
 	return 0;
 }

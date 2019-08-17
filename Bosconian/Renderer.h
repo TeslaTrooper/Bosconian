@@ -1,7 +1,7 @@
 #ifndef RENDERER
 #define RENDERER
 
-#include <BaseOpenGLRenderer.h>
+#include <BaseRenderer.h>
 #include <ShaderFactory.h>
 #include <Shader.h>
 #include <Texture.h>
@@ -17,7 +17,7 @@
 #define TEXTURE_TRANSFORM		"textureTranslation"
 #define VIEW					"view"
 
-class Renderer : public BaseOpenGLRenderer {
+class Renderer : public BaseRenderer {
 
 	Game* const game;
 

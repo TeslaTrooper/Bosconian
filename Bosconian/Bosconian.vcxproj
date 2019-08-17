@@ -152,7 +152,7 @@
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="StationAI.h" />
     <ClInclude Include="StationProjectile.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connector.h" />
