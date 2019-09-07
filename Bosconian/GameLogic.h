@@ -160,6 +160,19 @@ public:
 		return stats->getLevel();
 	}
 
+	Vec2 getPlayerPosition() const override {
+		Ship* ship = entityHandler.getShip();
+
+		if (ship == nullptr)
+			return Vec2(-1, -1);
+
+		return entityHandler.getShip()->getPosition();
+	}
+
+	vector<Vec2> getStationPositions() const override {
+		return entityHandler.getStationPositions();
+	}
+
 };
 
 #endif GAME_LOGIC

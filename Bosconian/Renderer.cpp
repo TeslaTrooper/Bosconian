@@ -7,6 +7,7 @@ void Renderer::setup(int defaultFramebufferWidth, int defaultFramebufferHeight) 
 	framebufferShader = ShaderFactory::createShader("framebufferShader.vert", "framebufferShader.frag");
 	hudShader = ShaderFactory::createShader("hudShader.vert", "shader.frag");
 	backgroundShader = ShaderFactory::createShader("hudShader.vert", "backgroundShader.frag");
+	radarShader = ShaderFactory::createShader("radarShader.vert", "radarShader.frag");
 
 	background = new Texture("bg.bmp", Format::BMP);
 	background->loadTexture();
@@ -21,15 +22,17 @@ void Renderer::setup(int defaultFramebufferWidth, int defaultFramebufferHeight) 
 
 	initProjection();
 
-	mainFrameBuffer = createFrameBuffer(0, 0, MAIN_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
-	hudFrameBuffer = createFrameBuffer(MAIN_FRAME_BUFFER_WIDTH, 0, HUD_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
+	mainFrameBuffer = createFrameBuffer(0, 0, MAIN_FRAME_BUFFER_WIDTH, MAIN_FRAME_BUFFER_HEIGHT);
+	hudFrameBuffer = createFrameBuffer(HUD_FRAME_BUFFER_X , HUD_FRAME_BUFFER_Y, HUD_FRAME_BUFFER_WIDTH, HUD_FRAME_BUFFER_HEIGHT);
+	radarFrameBuffer = createFrameBuffer(RADAR_FRAME_BUFFER_X, RADAR_FRAME_BUFFER_Y, RADAR_FRAME_BUFFER_WIDTH, RADAR_FRAME_BUFFER_HEIGHT);
 
 	data = configure(ModelData::quadBindable, DrawMode::TRIANGLES);
 }
 
 void Renderer::initProjection() const {
-	Mat4 mainFrameBufferProjection = Projection::getOrthographicProjection(MAIN_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
-	Mat4 hudFrameBufferProjection = Projection::getOrthographicProjection(HUD_FRAME_BUFFER_WIDTH, WIN_HEIGHT);
+	Mat4 mainFrameBufferProjection = Projection::getOrthographicProjection(MAIN_FRAME_BUFFER_WIDTH, MAIN_FRAME_BUFFER_HEIGHT);
+	Mat4 hudFrameBufferProjection = Projection::getOrthographicProjection(HUD_FRAME_BUFFER_WIDTH, HUD_FRAME_BUFFER_HEIGHT);
+	Mat4 radarFrameBufferProjection = Projection::getOrthographicProjection(RADAR_FRAME_BUFFER_WIDTH, RADAR_FRAME_BUFFER_HEIGHT);
 
 	standardShader->use();
 	standardShader->setUniformMatrix4(PROJECTION, mainFrameBufferProjection);
@@ -39,6 +42,9 @@ void Renderer::initProjection() const {
 
 	backgroundShader->use();
 	backgroundShader->setUniformMatrix4(PROJECTION, mainFrameBufferProjection);
+
+	radarShader->use();
+	radarShader->setUniformMatrix4(PROJECTION, radarFrameBufferProjection);
 }
 
 void Renderer::render() const {
@@ -48,6 +54,7 @@ void Renderer::render() const {
 	renderBackground();
 	renderEntites();
 	renderHUD();
+	renderRadar();
 
 	//glDisable(GL_POLYGON_MODE);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -88,7 +95,6 @@ void Renderer::renderHUD() const {
 	prepareHUDShader({ Mat4::getTransformation(scoreLabelPosition, Vec2(100, 20)), TextureAtlas::Font::SCORE });
 	draw(data);
 
-
 	Label l = Label(to_string(game->getScore()), 0, WIN_HEIGHT - 95);
 	for (RenderUnit u : l.getRenderUnits()) {
 		prepareHUDShader(u);
@@ -101,6 +107,36 @@ void Renderer::renderHUD() const {
 
 	Vec2 roundPosition = Vec2(180, 50);
 	prepareHUDShader({ Mat4::getTransformation(roundPosition, Vec2(20, 20)), TextureAtlas::Font::ONE });
+	draw(data);
+}
+
+void Renderer::renderRadar() const {
+	bindFrameBuffer(radarFrameBuffer);
+
+	prepareRadarShader({ Mat4::getTransformation(Vec2(0, 0), Vec2(RADAR_FRAME_BUFFER_WIDTH, RADAR_FRAME_BUFFER_HEIGHT)) }, RADAR_BACKGROUND_COLOR);
+	draw(data);
+
+	Vec2 playerPosition = game->getPlayerPosition();
+	vector<Vec2> stationPositions = game->getStationPositions();
+
+	float RH = RADAR_FRAME_BUFFER_HEIGHT;
+	float WH = WORLD_HEIGHT;
+
+	float ratioX = (float)RADAR_FRAME_BUFFER_WIDTH / (float)WORLD_WIDTH;
+	float ratioY = RH / WH;
+
+	Vec2 ratio = Vec2(ratioX, ratioY);
+
+	for (Vec2 position : game->getStationPositions()) {
+		prepareRadarShader({ Mat4::getTransformation(position * ratio, Vec2(10, 10)) }, RADAR_STATION_COLOR);
+		draw(data);
+	}
+	
+
+	if (playerPosition.x < 0 && playerPosition.y < 0)
+		return;
+
+	prepareRadarShader({ Mat4::getTransformation(playerPosition * ratio, Vec2(10, 10)) }, RADAR_PLAYER_COLOR);
 	draw(data);
 }
 
@@ -119,6 +155,12 @@ void Renderer::prepareHUDShader(const RenderUnit unit) const {
 	hudShader->use();
 	hudShader->setUniformMatrix4(TRANSFORM, unit.transformation);
 	hudShader->setUniformMatrix3(TEXTURE_TRANSFORM, textureTransformation);
+}
+
+void Renderer::prepareRadarShader(const RenderUnit unit, const Color color) const {
+	radarShader->use();
+	radarShader->setUniformMatrix4(TRANSFORM, unit.transformation);
+	radarShader->setColor(COLOR, color);
 }
 
 void Renderer::prepareBackgroundShader(const RenderUnit unit) const {

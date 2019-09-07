@@ -103,4 +103,13 @@ public:
 		return hasElements(CLASS_ID_ENEMY_TYPE_SPY);
 	}
 
+	vector<Vec2> getStationPositions() const {
+		vector<Vec2> positions;
+
+		for (GameObject* obj : *objects.at(CLASS_ID_STATION_CORE))
+			positions.push_back(obj->getPosition());
+
+		return positions;
+	}
+
 };

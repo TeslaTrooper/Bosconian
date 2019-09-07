@@ -22,6 +22,10 @@ struct Game : public InternalLogic {
 
 	virtual void shoot() = 0;
 
+	virtual Vec2 getPlayerPosition() const = 0;
+
+	virtual vector<Vec2> getStationPositions() const = 0;
+
 };
 
 #endif GAME
